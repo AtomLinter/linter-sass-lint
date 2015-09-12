@@ -2,7 +2,7 @@
   "name": "linter-sass-lint",
   "main": "./lib/main",
   "version": "0.0.0",
-  "description": "Lint your sass with pure node sass-lint",
+  "description": "Plugin for Atom Linter - Lint your sass with pure node sass-lint",
   "repository": "https://github.com/DanPurdy/linter-sass-lint",
   "license": "MIT",
   "engines": {
