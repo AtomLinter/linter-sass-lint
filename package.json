@@ -1,0 +1,22 @@
+{
+  "name": "linter-sass-lint",
+  "main": "./lib/main",
+  "version": "0.0.0",
+  "description": "Lint your sass with pure node sass-lint",
+  "repository": "https://github.com/DanPurdy/linter-sass-lint",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0"
+  },
+  "dependencies": {
+    "sass-lint": "^1.2.0",
+    "atom-linter": "^3.2.0"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.1.0": "provideLinter"
+      }
+    }
+  }
+}
