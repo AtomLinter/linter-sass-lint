@@ -1,5 +1,5 @@
 {CompositeDisposable} = require 'atom'
-{findFile, exec} = helpers = require 'atom-linter'
+{findFile} = helpers = require 'atom-linter'
 path = require 'path'
 
 module.exports =
