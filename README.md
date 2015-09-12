@@ -1,6 +1,6 @@
 # linter-sass-lint
 
-This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [sass-lint](https://github.com/sasstools/sass-lint). It will be used with files that have the “SASS” or “SCSS” syntax.
+This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [sass-lint](https://github.com/sasstools/sass-lint). It will be used with files that have the “Sass” or “SCSS” syntax.
 
 [sass-lint](https://github.com/sasstools/sass-lint) is a node only sass linter and isn't related to [scss-lint](https://github.com/brigade/scss-lint).
 
