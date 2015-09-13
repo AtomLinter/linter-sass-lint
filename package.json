@@ -5,6 +5,13 @@
   "description": "Plugin for Atom Linter - Lint your sass with pure node sass-lint",
   "repository": "https://github.com/DanPurdy/linter-sass-lint",
   "license": "MIT",
+  "keywords": [
+    "Sass",
+    "scss",
+    "sass-lint",
+    "node-sass",
+    "linter"
+  ],
   "engines": {
     "atom": ">=1.0.0"
   },
