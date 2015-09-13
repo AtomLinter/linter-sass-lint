@@ -4,11 +4,11 @@ This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides a
 
 [sass-lint](https://github.com/sasstools/sass-lint) is a node only sass linter and isn't related to [scss-lint](https://github.com/brigade/scss-lint).
 
-### Instalation
+### Installation
 
 You'll need to have [Linter](https://atom.io/packages/linter) installed to use this plugin
 
-A version of [sass-lint](https://github.com/sasstools/sass-lint) comes bundled with this plugin but if you'd like to it manually you can follow the instructions [here](https://github.com/sasstools/sass-lint).
+A version of [sass-lint](https://github.com/sasstools/sass-lint) comes bundled with this plugin but if you'd like to install it manually you can follow the instructions [here](https://github.com/sasstools/sass-lint).
 
 #### Plugin installation
 
@@ -18,9 +18,9 @@ apm install linter-sass-lint
 
 #### .sass-lint.yml
 
-a `.sass-lint.yml` config file is required for this linter. You can find an example [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml) and documentation on how to configure this and documentation on each of the rules [here](https://github.com/sasstools/sass-lint/tree/develop/docs).
+a `.sass-lint.yml` config file is required for this linter. You can find an example [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml) and documentation on how to configure this and also documentation on each of the rules [here](https://github.com/sasstools/sass-lint/tree/develop/docs).
 
-By default this plugin will search up the directory tree for this file, you can also specify a path to this config file in the plugin settings or in `~/.atom/config.cson` file.
+By default this plugin will search up the directory tree for this file, you can also specify a path to this config file in the plugin settings or in `~/.atom/config.cson` file. Usually you would place this config file in your projects root and keep it under version control too.
 
 ### Settings
 
