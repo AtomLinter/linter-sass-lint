@@ -34,10 +34,10 @@ There are two options you can configure either within the plugin or by editing y
 
 Contributions, suggestions and fixes are more than welcome.
 
-This plugin follows a simple styleguide
+This plugin follows a simple style guide.
 
-1. Indentation is 2 spaces
-1. All code should pass the coffeelinter linter, the config of which is included in this repository
+1. Indentation is 2 spaces.
+1. All code should pass the coffeelinter linter, the config of which is included in this repository.
 
 General contribution guidelines apply
 
@@ -48,4 +48,4 @@ General contribution guidelines apply
 
 If you're unsure on whether your contribution will be required then please file an issue first and we can discuss it.
 
-If you find any problems with the `sass-lint` itself with regards to bugs in rules then please visit the [sass-lint Github Page](https://github.com/sasstools/sass-lint) please note that `sass-lint` is young and still under heavy development work.
+If you find any problems with the `sass-lint` itself with regards to bugs in rules then please visit the [sass-lint Github Page](https://github.com/sasstools/sass-lint) please note that `sass-lint` is young and still under heavy development.

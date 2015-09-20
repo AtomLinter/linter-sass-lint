@@ -16,7 +16,7 @@
     "atom": ">=1.0.0"
   },
   "dependencies": {
-    "sass-lint": "^1.2.0",
+    "sass-lint": "^1.2.1",
     "atom-linter": "^3.2.0"
   },
   "providedServices": {
