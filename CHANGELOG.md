@@ -1,3 +1,9 @@
+### 0.2.0
+
+- Bump `sass-lint` version
+- Update package description
+- Update output format to show rule names
+
 ### 0.1.5
 
 - Bump `sass-lint` version
