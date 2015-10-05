@@ -15,7 +15,6 @@ module.exports =
 
   activate: ->
 
-    console.log 'activate linter-sass-lint'
     @subs = new CompositeDisposable
     @subs.add atom.config.observe 'linter-sass-lint.executablePath',
       (executablePath) =>
@@ -47,6 +46,6 @@ module.exports =
           col = if msg.column then msg.column - 1 else 0
 
           type: if msg.severity is 1 then 'Warning' else if msg.severity is 2 then 'Error' else 'Info'
-          text: if msg.message then msg.message else 'Unknown Error'
+          text: if msg.message then msg.ruleId + ': ' + msg.message else 'Unknown Error'
           filePath: filePath
           range: [[line, col], [line, col + 1]]
