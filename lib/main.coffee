@@ -28,6 +28,7 @@ module.exports =
 
   provideLinter: ->
     provider =
+      name: 'sass-lint'
       grammarScopes: ['source.css.scss', 'source.scss', 'source.css.sass', 'source.sass']
       scope: 'file'
       lintOnFly: false
