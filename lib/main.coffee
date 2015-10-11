@@ -38,7 +38,14 @@ module.exports =
         config = if @configPath is '' then findFile filePath, configExt else path.join @configPath, configExt
         linter = require(@executablePath)
 
-        if config is null then throw new Error 'No .sass-lint.yml config file found'
+        if config is null
+          atom.notifications.addError """
+            **No .sass-lint.yml config file found.** You can find an example
+            [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml)
+            and documentation on how to configure this and also documentation on
+            each of the rules [here](https://github.com/sasstools/sass-lint/tree/develop/docs).
+          """
+          return []
 
         results = linter.lintFiles(filePath, {}, config)
 
