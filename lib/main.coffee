@@ -47,7 +47,25 @@ module.exports =
           """
           return []
 
-        results = linter.lintFiles(filePath, {}, config)
+        try
+          results = linter.lintFiles(filePath, {}, config)
+        catch error
+          messages = []
+          match = error.message.match /Parsing error at [^:]+: (.*) starting from line #(\d+)/
+          if match
+            text = "Parsing error: #{match[1]}."
+            lineIdx = Number(match[2]) - 1
+            line = editor.lineTextForBufferRow(lineIdx)
+            colEndIdx = if line then line.length else 1
+
+            return [
+              type: 'Error'
+              text: text
+              filePath: filePath
+              range: [[lineIdx, 0], [lineIdx, colEndIdx]]
+            ]
+
+          return []
 
         return results[0].messages.map (msg) ->
           line = if msg.line then msg.line - 1 else 0
