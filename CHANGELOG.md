@@ -1,3 +1,11 @@
+### 0.3.0
+- Updated README.md with correct branches and updated spelling
+- Added nicer block parsing error messages [#6](https://github.com/DanPurdy/linter-sass-lint/pull/6) (thanks to [josa42](https://github.com/josa42))
+- Updated missing config warning message to provide more useful information [#5](https://github.com/DanPurdy/linter-sass-lint/pull/5) (thanks to [josa42](https://github.com/josa42))
+
+### 0.2.1
+- Added name to linter warnings [#4](https://github.com/DanPurdy/linter-sass-lint/pull/4) (thanks to [steelbrain](https://github.com/steelbrain))
+
 ### 0.2.0
 
 - Bump `sass-lint` version
