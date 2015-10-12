@@ -18,7 +18,7 @@ apm install linter-sass-lint
 
 #### .sass-lint.yml
 
-a `.sass-lint.yml` config file is required for this linter. You can find an example [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml) and documentation on how to configure this and also documentation on each of the rules [here](https://github.com/sasstools/sass-lint/tree/develop/docs).
+A `.sass-lint.yml` config file is required for this linter. You can find an example of one [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml) and documentation on how to configure this and each of the rules [here](https://github.com/sasstools/sass-lint/tree/master/docs).
 
 By default this plugin will search up the directory tree for this file, you can also specify a path to this config file in the plugin settings or in `~/.atom/config.cson` file. Usually you would place this config file in your projects root and keep it under version control too.
 

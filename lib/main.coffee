@@ -40,10 +40,10 @@ module.exports =
 
         if config is null
           atom.notifications.addError """
-            **No .sass-lint.yml config file found.** You can find an example
+            **No .sass-lint.yml config file found.** You can find an example of one
             [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml)
-            and documentation on how to configure this and also documentation on
-            each of the rules [here](https://github.com/sasstools/sass-lint/tree/develop/docs).
+            and documentation on how to configure this and each of the rules
+            [here](https://github.com/sasstools/sass-lint/tree/master/docs).
           """
           return []
 
