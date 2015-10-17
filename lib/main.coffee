@@ -9,7 +9,7 @@ module.exports =
       type: 'string'
       default: path.join(__dirname, '..', 'node_modules', 'sass-lint')
     configPath:
-      title: '.sass-lint.yml Config Path'
+      title: 'The .sass-lint.yml config file you would like to use e.g. /path/to/.sass-lint.yml'
       type: 'string'
       default: ''
 
@@ -35,8 +35,19 @@ module.exports =
       lint: (editor) =>
         configExt = '.sass-lint.yml'
         filePath = editor.getPath()
-        config = if @configPath is '' then findFile filePath, configExt else path.join @configPath, configExt
+        config = if @configPath is '' then findFile filePath, configExt else @configPath
         linter = require(@executablePath)
+
+        if config isnt null and path.extname(config) isnt '.yml'
+          config = path.join @configPath, configExt
+          atom.notifications.addWarning """
+            **Deprecation Warning**
+
+            As of `1.0.0` the configPath option will require you to
+            explicitly specify a .sass-lint.yml file rather than just a path to search.
+
+            Please add the full path and filename to this plugins configPath option.
+          """
 
         if config is null
           atom.notifications.addError """
@@ -45,6 +56,7 @@ module.exports =
             and documentation on how to configure this and each of the rules
             [here](https://github.com/sasstools/sass-lint/tree/master/docs).
           """
+
           return []
 
         try
