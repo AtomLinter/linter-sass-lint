@@ -1,3 +1,13 @@
+### 0.4.0
+- Updated sass-lint dependency to 1.3.1
+- Modify the config path option to accept files as well as paths.
+- Update config path description
+- Add deprecation warning messages
+
+**Deprecations**
+
+- The config path will soon only accept paths with filenames specified for the user config. A deprecation warning message is displayed to urge users to switch
+
 ### 0.3.0
 - Updated README.md with correct branches and updated spelling
 - Added nicer block parsing error messages [#6](https://github.com/DanPurdy/linter-sass-lint/pull/6) (thanks to [josa42](https://github.com/josa42))
