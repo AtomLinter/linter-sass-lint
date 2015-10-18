@@ -79,7 +79,7 @@ module.exports =
 
           return []
 
-        return results[0].messages.map (msg) ->
+        if results[0] then return results[0].messages.map (msg) ->
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
 
@@ -87,3 +87,5 @@ module.exports =
           text: if msg.message then msg.ruleId + ': ' + msg.message else 'Unknown Error'
           filePath: filePath
           range: [[line, col], [line, col + 1]]
+
+        return []
