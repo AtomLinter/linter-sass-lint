@@ -77,7 +77,12 @@ module.exports =
               range: [[lineIdx, 0], [lineIdx, colEndIdx]]
             ]
 
-          return []
+          return [
+            type: 'Error'
+            text: 'sass-lint had a problem'
+            filePath: filePath
+            range: [[1], [1]]
+          ]
 
         if results[0] then return results[0].messages.map (msg) ->
           line = if msg.line then msg.line - 1 else 0
