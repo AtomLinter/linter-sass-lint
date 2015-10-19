@@ -1,3 +1,6 @@
+### 0.4.1
+- Fixed a possible error that would cause sass-lint to break if you tried to lint in an ignored file
+
 ### 0.4.0
 - Updated sass-lint dependency to 1.3.1
 - Modify the config path option to accept files as well as paths.
