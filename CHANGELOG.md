@@ -1,3 +1,9 @@
+### 0.4.3
+- oops, wrong branch
+
+### 0.4.2
+- Small update to bump minimum sass-lint version to v1.4.0
+
 ### 0.4.1
 - Fixed a possible error that would cause sass-lint to break if you tried to lint in an ignored file
 
