@@ -1,3 +1,6 @@
+### 0.4.3
+- oops, wrong branch
+
 ### 0.4.2
 - Small update to bump minimum sass-lint version to v1.4.0
 
