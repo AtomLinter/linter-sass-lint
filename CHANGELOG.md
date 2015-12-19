@@ -1,3 +1,6 @@
+### 0.4.4
+- Moved over to the AtomLinter organisation
+
 ### 0.4.3
 - oops, wrong branch
 
