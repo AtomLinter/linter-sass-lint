@@ -3,7 +3,7 @@
   "main": "./lib/main",
   "version": "0.4.3",
   "description": "Atom Linter plugin - Lint your Sass/SCSS with pure node sass-lint",
-  "repository": "https://github.com/DanPurdy/linter-sass-lint",
+  "repository": "https://github.com/AtomLinter/linter-sass-lint",
   "license": "MIT",
   "keywords": [
     "Sass",
