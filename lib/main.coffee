@@ -5,7 +5,7 @@ path = require 'path'
 module.exports =
   config:
     noConfigDisable:
-      title: 'Disable when no sass-lint config file is found in your project'
+      title: 'Disable when no sass-lint config file is found in your project and a .sass-lint.yml file is not specified in the .sass-lint.yml Path option'
       type: 'boolean'
       default: false
     configPath:
