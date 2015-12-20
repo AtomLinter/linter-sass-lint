@@ -1,3 +1,10 @@
+### 0.5.0
+- Improved error messages
+- Added option to disable linting if no config file is found
+- Config files in the project root are now preferred over the config path option
+- Updated dependencies and added development lint step
+- Improved formatting of lint results
+
 ### 0.4.4
 - Moved over to the AtomLinter organisation
 
