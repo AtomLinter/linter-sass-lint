@@ -12,18 +12,28 @@
     "node-sass",
     "linter"
   ],
+  "scripts": {
+    "lint": "coffeelint ./lib/main.coffee"
+  },
   "engines": {
     "atom": ">=1.0.0"
   },
   "dependencies": {
-    "sass-lint": "^1.4.0",
-    "atom-linter": "^3.2.0"
+    "atom-linter": "^4.1.1",
+    "atom-package-deps": "^3.0.6",
+    "sass-lint": "^1.4.0"
   },
+  "package-deps": [
+    "linter"
+  ],
   "providedServices": {
     "linter": {
       "versions": {
         "1.1.0": "provideLinter"
       }
     }
+  },
+  "devDependencies": {
+    "coffeelint": "^1.14.2"
   }
 }
