@@ -28,7 +28,7 @@ By default a config file found in the root of your currently open project will t
 
 ### Settings
 
-There are two options you can configure either within the plugin or by editing your `~/.atom/config.cson` file.
+There are three options you can configure either within the plugin or by editing your `~/.atom/config.cson` file.
 
 * `executablePath` - this is the path to a locally installed `sass-lint` package (by default the latest version of `sass-lint` version will be included with and used by this plugin when it is installed).
 
