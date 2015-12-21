@@ -45,13 +45,14 @@ Please read the [Contribution Guidlines](CONTRIBUTING.md)
 A general sense of the guidelines can be found below.
 
 1. Indentation is 2 spaces.
-1. All code should pass the coffeelinter linter, the config of which is included in this repository.
+1. All code should pass the coffeelinter linter, the config of which is included in this repository (`npm-test`).
 1. the .editorconfig file should be used to ensure a consistent style [info here](http://editorconfig.org/)
 
 General contribution guidelines apply
 
 1. Fork the plugin repository
 1. Create a feature/hotfix branch off of master
+1. Lint your code `npm-test`
 1. Commit and push the branch
 1. Make a pull request
 
