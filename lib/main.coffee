@@ -10,12 +10,12 @@ module.exports =
       default: false
     configPath:
       title: '.sass-lint.yml Path'
-      description: 'A .sass-lint.yml file to use if no config file is found in the current project'
+      description: 'A .sass-lint.yml file to use/fallback to if no config file is found in the current project root'
       type: 'string'
       default: ''
     executablePath:
       title: 'sass-lint package Path'
-      description: 'If you\'d like to use a copy of sass-lint other than the one included with this package, specify the path to it here'
+      description: 'If you\'d like to use a copy of sass-lint other than the one included with this package, specify the path to it here e.g. \'/Users/username/packages/sass-lint\''
       type: 'string'
       default: path.join(__dirname, '..', 'node_modules', 'sass-lint')
 
