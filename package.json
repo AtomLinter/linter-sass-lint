@@ -2,7 +2,7 @@
   "name": "linter-sass-lint",
   "main": "./lib/main",
   "version": "0.5.0",
-  "description": "Atom Linter plugin - Lint your Sass/SCSS with pure node sass-lint",
+  "description": "Atom Linter plugin to lint your Sass/SCSS with pure node sass-lint",
   "repository": "https://github.com/AtomLinter/linter-sass-lint",
   "license": "MIT",
   "keywords": [
@@ -13,7 +13,7 @@
     "linter"
   ],
   "scripts": {
-    "lint": "coffeelint ./lib/main.coffee"
+    "test": "coffeelint ./lib/main.coffee"
   },
   "engines": {
     "atom": ">=1.0.0"

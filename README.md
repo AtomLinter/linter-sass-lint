@@ -8,7 +8,7 @@ This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides a
 
 You'll need to have [Linter](https://atom.io/packages/linter) installed to use this plugin
 
-A version of [sass-lint](https://github.com/sasstools/sass-lint) comes bundled with this plugin but if you'd like to install it manually you can follow the instructions [here](https://github.com/sasstools/sass-lint).
+**The current latest version of [sass-lint](https://github.com/sasstools/sass-lint) comes bundled with this plugin but if you'd like to install it manually you can follow the instructions [here](https://github.com/sasstools/sass-lint).**
 
 #### Plugin installation
 
@@ -22,27 +22,37 @@ A `.sass-lint.yml` config file is required for this linter. You can find an exam
 
 By default this plugin will search up the directory tree for this file, you can also specify a path to this config file in the plugin settings or in `~/.atom/config.cson` file. Usually you would place this config file in your projects root and keep it under version control too.
 
+You can use the `noConfigDisable` option to prevent any attempts at linting (and the missing config error messages you will encounter) if a valid config is not found.
+
+By default a config file found in the root of your currently open project will take preference over a config file specified with the `configPath` option.
+
 ### Settings
 
-There are two options you can configure either within the plugin or by editing your `~/.atom/config.cson` file.
+There are three options you can configure either within the plugin or by editing your `~/.atom/config.cson` file.
 
-* `executablePath` - this is the path to a locally installed `sass-lint` package (by default a version will be included with and used by this plugin).
+* `executablePath` - this is the path to a locally installed `sass-lint` package (by default the latest version of `sass-lint` version will be included with and used by this plugin when it is installed).
 
-* `configPath` - this is path to a `.sass-lint.yml` config file.
+* `configPath` - this is path to a `.sass-lint.yml` config file, this should only be used if you'd like to specify a global config file rather than rely on a project config file in the root of your project.
+
+* `noConfigDisable` - Enable to prevent any linting if a valid config file (.sass-lint.yml) is not found in the project root.
 
 ### Contributing
 
 Contributions, suggestions and fixes are more than welcome.
 
-This plugin follows a simple style guide.
+Please read the [Contribution Guidlines](CONTRIBUTING.md)
+
+A general sense of the guidelines can be found below.
 
 1. Indentation is 2 spaces.
-1. All code should pass the coffeelinter linter, the config of which is included in this repository.
+1. All code should pass the coffeelinter linter, the config of which is included in this repository (`npm-test`).
+1. the .editorconfig file should be used to ensure a consistent style [info here](http://editorconfig.org/)
 
 General contribution guidelines apply
 
 1. Fork the plugin repository
 1. Create a feature/hotfix branch off of master
+1. Lint your code `npm-test`
 1. Commit and push the branch
 1. Make a pull request
 
