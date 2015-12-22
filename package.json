@@ -13,7 +13,7 @@
     "linter"
   ],
   "scripts": {
-    "lint": ".coffeelint ./lib/main.coffee"
+    "lint": "coffeelint ./lib/main.coffee"
   },
   "engines": {
     "atom": ">=1.0.0"
