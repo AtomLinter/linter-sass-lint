@@ -1,6 +1,6 @@
 'use babel';
 
-describe('The scss_lint provider for Linter - sass', () => {
+describe('The scss_lint provider for Linter - scss', () => {
   const lint = require('../lib/main').provideLinter().lint;
   const configFile = __dirname + '/fixtures/config/.sass-lint.yml';
 
@@ -14,12 +14,12 @@ describe('The scss_lint provider for Linter - sass', () => {
     });
   });
 
-  describe('checks failure.sass and', () => {
+  describe('checks failure.scss and', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configPath', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/failure.sass').then(openEditor => {
+        return atom.workspace.open(__dirname + '/fixtures/files/failure.scss').then(openEditor => {
           editor = openEditor;
         });
       });
@@ -37,7 +37,7 @@ describe('The scss_lint provider for Linter - sass', () => {
       expect(messages[0].html).toBeDefined();
       expect(messages[0].html).toEqual('<span class=\"badge badge-flexible\">no-ids</span> ID selectors not allowed');
       expect(messages[0].filePath).toBeDefined();
-      expect(messages[0].filePath).toMatch(/.+failure\.sass$/);
+      expect(messages[0].filePath).toMatch(/.+failure\.scss$/);
       expect(messages[0].range).toBeDefined();
       expect(messages[0].range.length).toEqual(2);
       expect(messages[0].range).toEqual([[0, 0], [0, 1]]);
@@ -50,19 +50,19 @@ describe('The scss_lint provider for Linter - sass', () => {
       expect(messages[1].html).toBeDefined();
       expect(messages[1].html).toEqual('<span class=\"badge badge-flexible\">no-color-literals</span> Color literals such as \'red\' should only be used in variable declarations');
       expect(messages[1].filePath).toBeDefined();
-      expect(messages[1].filePath).toMatch(/.+failure\.sass$/);
+      expect(messages[1].filePath).toMatch(/.+failure\.scss$/);
       expect(messages[1].range).toBeDefined();
       expect(messages[1].range.length).toEqual(2);
       expect(messages[1].range).toEqual([[1, 9], [1, 10]]);
     });
   });
 
-  describe('checks pass.sass and', () => {
+  describe('checks pass.scss and', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configPath', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/pass.sass').then(openEditor => {
+        return atom.workspace.open(__dirname + '/fixtures/files/pass.scss').then(openEditor => {
           editor = openEditor;
         });
       });
