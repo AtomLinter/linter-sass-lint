@@ -1,3 +1,14 @@
+### 0.6.0
+- Tests! Specs for sass and scss.
+- Added Travis, CircleCi & Appveyor builds
+
+### 0.5.1
+- Added contribution guidelines
+- Added .editorconfig for consistent contributions [http://editorconfig.org/](http://editorconfig.org/)
+- Updated executablePath option description
+- Updated project description
+- Added missing documentation for noConfigDisable option
+
 ### 0.5.0
 - Improved error messages
 - Added option to disable linting if no config file is found
