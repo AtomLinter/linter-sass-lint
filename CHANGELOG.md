@@ -1,3 +1,6 @@
+### 0.6.2
+- Renamed incorrectly named syntax tests
+
 ### 0.6.1
 - fix protected branch issue with apm publish
 
