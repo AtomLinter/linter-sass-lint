@@ -1,5 +1,13 @@
 # linter-sass-lint
 
+[![Build Status](https://travis-ci.org/AtomLinter/linter-sass-lint.svg)](https://travis-ci.org/AtomLinter/linter-sass-lint)
+[![Circle CI](https://circleci.com/gh/AtomLinter/linter-sass-lint/tree/master.svg?style=shield)](https://circleci.com/gh/AtomLinter/linter-sass-lint/tree/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/fd4oj1kb84uv5a54/branch/master?svg=true)](https://ci.appveyor.com/project/DanPurdy/linter-sass-lint/branch/master)
+
+[![apm](https://img.shields.io/apm/l/linter-sass-lint.svg)](https://atom.io/packages/linter-sass-lint)
+[![apm](https://img.shields.io/apm/dm/linter-sass-lint.svg)](https://atom.io/packages/linter-sass-lint)
+[![apm](https://img.shields.io/apm/v/linter-sass-lint.svg)](https://atom.io/packages/linter-sass-lint)
+
 This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [sass-lint](https://github.com/sasstools/sass-lint). It will be used with files that have the “Sass” or “SCSS” syntax.
 
 [sass-lint](https://github.com/sasstools/sass-lint) is a node only sass linter and isn't related to [scss-lint](https://github.com/brigade/scss-lint).
