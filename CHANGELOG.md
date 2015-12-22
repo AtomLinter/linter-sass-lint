@@ -1,6 +1,10 @@
+### 0.6.1
+- fix protected branch issue with apm publish
+
 ### 0.6.0
 - Tests! Specs for sass and scss.
 - Added Travis, CircleCi & Appveyor builds
+- Added and modified a few dotfiles for project consistency
 
 ### 0.5.1
 - Added contribution guidelines
