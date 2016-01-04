@@ -1,3 +1,7 @@
+### 0.6.3
+- Update to latest airbnb eslint dependency
+- Slight refactor of tests to meet new standards
+
 ### 0.6.2
 - Renamed incorrectly named syntax tests
 
