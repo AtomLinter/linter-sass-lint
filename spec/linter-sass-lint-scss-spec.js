@@ -32,10 +32,12 @@ describe('The scss_lint provider for Linter - scss', () => {
 
     it('verifies the first message', () => {
       const messages = lint(editor);
+      const warningMarkup = '<span class=\"badge badge-flexible\">no-ids</span>';
+      const warnId = ' ID selectors not allowed';
       expect(messages[0].type).toBeDefined();
       expect(messages[0].type).toEqual('Error');
       expect(messages[0].html).toBeDefined();
-      expect(messages[0].html).toEqual('<span class=\"badge badge-flexible\">no-ids</span> ID selectors not allowed');
+      expect(messages[0].html).toEqual(`${warningMarkup}${warnId}`);
       expect(messages[0].filePath).toBeDefined();
       expect(messages[0].filePath).toMatch(/.+failure\.scss$/);
       expect(messages[0].range).toBeDefined();
@@ -45,10 +47,12 @@ describe('The scss_lint provider for Linter - scss', () => {
 
     it('verifies the second message', () => {
       const messages = lint(editor);
+      const warningMarkup = '<span class=\"badge badge-flexible\">no-color-literals</span>';
+      const warnId = ' Color literals such as \'red\' should only be used in variable declarations';
       expect(messages[1].type).toBeDefined();
       expect(messages[1].type).toEqual('Warning');
       expect(messages[1].html).toBeDefined();
-      expect(messages[1].html).toEqual('<span class=\"badge badge-flexible\">no-color-literals</span> Color literals such as \'red\' should only be used in variable declarations');
+      expect(messages[1].html).toEqual(`${warningMarkup}${warnId}`);
       expect(messages[1].filePath).toBeDefined();
       expect(messages[1].filePath).toMatch(/.+failure\.scss$/);
       expect(messages[1].range).toBeDefined();
