@@ -1,6 +1,6 @@
 'use babel';
 
-describe('The scss_lint provider for Linter - scss', () => {
+describe('The sass-lint provider for Linter - scss', () => {
   const lint = require('../lib/main').provideLinter().lint;
   const configFile = __dirname + '/fixtures/config/.sass-lint.yml';
 

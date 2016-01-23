@@ -1,6 +1,6 @@
 'use babel';
 
-describe('The sass-lint provider for Linter - sass', () => {
+describe('The sass-lint provider for Linter - path options', () => {
   const lint = require('../lib/main').provideLinter().lint;
   const configFile = __dirname + '/fixtures/config/.sass-lint.yml';
 
@@ -12,18 +12,19 @@ describe('The sass-lint provider for Linter - sass', () => {
     });
   });
 
-  describe('checks failure.sass and', () => {
+  describe('checks failure.scss, expects a message and', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/failure.sass').then(openEditor => {
+        atom.config.set('linter-sass-lint.globalSassLint', true);
+        return atom.workspace.open(__dirname + '/fixtures/files/failure.scss').then(openEditor => {
           editor = openEditor;
         });
       });
     });
 
-    it('finds at least one message', () => {
+    it('lints the file with the globally installed sass-lint', () => {
       const messages = lint(editor);
       expect(messages.length).toBeGreaterThan(0);
     });
@@ -37,7 +38,7 @@ describe('The sass-lint provider for Linter - sass', () => {
       expect(messages[0].html).toBeDefined();
       expect(messages[0].html).toEqual(`${warningMarkup}${warnId}`);
       expect(messages[0].filePath).toBeDefined();
-      expect(messages[0].filePath).toMatch(/.+failure\.sass$/);
+      expect(messages[0].filePath).toMatch(/.+failure\.scss$/);
       expect(messages[0].range).toBeDefined();
       expect(messages[0].range.length).toEqual(2);
       expect(messages[0].range).toEqual([[0, 0], [0, 1]]);
@@ -52,62 +53,10 @@ describe('The sass-lint provider for Linter - sass', () => {
       expect(messages[1].html).toBeDefined();
       expect(messages[1].html).toEqual(`${warningMarkup}${warnId}`);
       expect(messages[1].filePath).toBeDefined();
-      expect(messages[1].filePath).toMatch(/.+failure\.sass$/);
+      expect(messages[1].filePath).toMatch(/.+failure\.scss$/);
       expect(messages[1].range).toBeDefined();
       expect(messages[1].range.length).toEqual(2);
       expect(messages[1].range).toEqual([[1, 9], [1, 10]]);
-    });
-  });
-
-  describe('checks pass.sass and', () => {
-    let editor = null;
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/pass.sass').then(openEditor => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it('finds nothing wrong with the valid file', () => {
-      const messages = lint(editor);
-      expect(messages.length).toEqual(0);
-    });
-  });
-
-  describe('opens ignored.sass and', () => {
-    let editor = null;
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/ignored.sass').then(openEditor => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it('ignores the file and reports no warnings', () => {
-      const messages = lint(editor);
-      expect(messages.length).toEqual(0);
-    });
-  });
-
-  describe('opens failure.sass and sets pacakage to not lint if no config file present', () => {
-    let editor = null;
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.noConfigDisable', true);
-        atom.config.set('linter-sass-lint.configFile', '');
-        return atom.workspace.open(__dirname + '/fixtures/files/failure.sass').then(openEditor => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it('doesn\'t lint the file as there\s no config file present', () => {
-      const messages = lint(editor);
-      expect(messages.length).toEqual(0);
     });
   });
 });
