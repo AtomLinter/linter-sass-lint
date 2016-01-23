@@ -1,3 +1,15 @@
+### 1.0.0
+- Added 'Lint On Fly' support [#11](https://github.com/AtomLinter/linter-sass-lint/issues/11) thanks to [Casey Foster](https://github.com/caseywebdev)
+- Removed the `executablePath` option
+- Removed the ability to specify a path to a config you must now explicitly define a config file if you use this option
+  - project configs remain untouched
+  - this has been deprecated since 0.4.0
+- Added a `globalSassLint` option to use your globally installed `sass-lint` package rather than the version included with `linter-sass-lint` [#3](https://github.com/AtomLinter/linter-sass-lint/issues/3)
+- Automatically look to your global modules in the event the above option is enabled but you've not set your path prefix.
+- Fixed an issue with ignored and included files options of your config being ignored, ignored files will now not be linted. See the `sass-lint` config file [documentation](https://github.com/sasstools/sass-lint/tree/master/docs) for more information on how to use this.
+- Fixed a few inconsistencies in the package tests
+- Added tests for the new options included in 1.0.0
+
 ### 0.6.3
 - Update to latest airbnb eslint dependency
 - Slight refactor of tests to meet new standards
