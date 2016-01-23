@@ -1,6 +1,7 @@
 {CompositeDisposable} = require 'atom'
 {find} = helpers = require 'atom-linter'
 path = require 'path'
+globule = require 'globule'
 
 module.exports =
   config:
@@ -8,8 +9,8 @@ module.exports =
       title: 'Disable when no sass-lint config file is found in your project and a .sass-lint.yml file is not specified in the .sass-lint.yml Path option'
       type: 'boolean'
       default: false
-    configPath:
-      title: '.sass-lint.yml Path'
+    configFile:
+      title: '.sass-lint.yml Config File'
       description: 'A .sass-lint.yml file to use/fallback to if no config file is found in the current project root'
       type: 'string'
       default: ''
@@ -19,15 +20,18 @@ module.exports =
       type: 'string'
       default: path.join(__dirname, '..', 'node_modules', 'sass-lint')
 
+  getFilePath: (path) ->
+    relative = atom.project.relativizePath(path)
+
   activate: ->
     require('atom-package-deps').install()
     @subs = new CompositeDisposable
     @subs.add atom.config.observe 'linter-sass-lint.noConfigDisable',
       (noConfigDisable) =>
         @noConfigDisable = noConfigDisable
-    @subs.add atom.config.observe 'linter-sass-lint.configPath',
-      (configPath) =>
-        @configPath = configPath
+    @subs.add atom.config.observe 'linter-sass-lint.configFile',
+      (configFile) =>
+        @configFile = configFile
     @subs.add atom.config.observe 'linter-sass-lint.executablePath',
       (executablePath) =>
         @executablePath = executablePath
@@ -45,7 +49,7 @@ module.exports =
         configExt = '.sass-lint.yml'
         filePath = editor.getPath()
         projectConfig = find filePath, configExt
-        globalConfig = if @configPath is '' then null else @configPath
+        globalConfig = if @configFile is '' then null else @configFile
         config = if projectConfig isnt null then projectConfig else globalConfig
 
         try
@@ -60,14 +64,11 @@ module.exports =
           return []
 
         if config isnt null and path.extname(config) isnt '.yml'
-          config = path.join @configPath, configExt
           atom.notifications.addWarning """
-            **Deprecation Warning**
+            **Config File Error**
 
-            As of `1.0.0` the configPath option will require you to
-            explicitly specify a .sass-lint.yml file rather than just a path to search.
-
-            Please add the full path and filename to this plugins configPath option.
+            The config file you specified doesn't seem to be a .yml file.\n
+            Please see the sass-lint [documentation](https://github.com/sasstools/sass-lint/tree/master/docs) on how to create a config file.
           """
 
         if config is null and @noConfigDisable is false
@@ -84,11 +85,15 @@ module.exports =
           return []
 
         try
-          result = linter.lintText({
-            text: editor.getText(),
-            format: path.extname(filePath).slice(1),
-            filename: filePath
-          }, {}, config)
+          compiledConfig = linter.getConfig({}, config)
+          relativePath = this.getFilePath(filePath)[1]
+
+          if globule.isMatch(compiledConfig.files.include, relativePath) and not globule.isMatch(compiledConfig.files.ignore, relativePath)
+            result = linter.lintText({
+              text: editor.getText(),
+              format: path.extname(filePath).slice(1),
+              filename: filePath
+            }, {}, config)
         catch error
           messages = []
           match = error.message.match /Parsing error at [^:]+: (.*) starting from line #(\d+)/
@@ -107,8 +112,9 @@ module.exports =
           else
             atom.notifications.addError """
               **sass-lint had a problem**
-              Please consider filing an issue with [sass-lint](https://github.com/sasstools/sass-lint/)
-              including the text below and any other information possible.
+              Please consider filing an issue with [linter-sass-lint](https://github.com/AtomLinter/linter-sass-lint)
+              or [sass-lint](https://github.com/sasstools/sass-lint) including the text below and any other
+              information possible.
 
               #{error.stack}
             """, {dismissable: true}
