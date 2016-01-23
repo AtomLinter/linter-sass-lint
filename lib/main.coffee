@@ -1,6 +1,7 @@
 {CompositeDisposable} = require 'atom'
 {find} = helpers = require 'atom-linter'
 path = require 'path'
+globule = require 'globule'
 
 module.exports =
   config:
@@ -18,6 +19,9 @@ module.exports =
       description: 'If you\'d like to use a copy of sass-lint other than the one included with this package, specify the path to it here e.g. \'/Users/username/packages/sass-lint\''
       type: 'string'
       default: path.join(__dirname, '..', 'node_modules', 'sass-lint')
+
+  getFilePath: (path) ->
+    relative = atom.project.relativizePath(path)
 
   activate: ->
     require('atom-package-deps').install()
@@ -84,11 +88,14 @@ module.exports =
           return []
 
         try
-          result = linter.lintText({
-            text: editor.getText(),
-            format: path.extname(filePath).slice(1),
-            filename: filePath
-          }, {}, config)
+          compiledConfig = linter.getConfig({}, config)
+
+          if globule.isMatch(compiledConfig.files.include, this.getFilePath(filePath)[1]) and not globule.isMatch(compiledConfig.files.ignore, this.getFilePath(filePath)[1])
+            result = linter.lintText({
+              text: editor.getText(),
+              format: path.extname(filePath).slice(1),
+              filename: filePath
+            }, {}, config)
         catch error
           messages = []
           match = error.message.match /Parsing error at [^:]+: (.*) starting from line #(\d+)/
@@ -107,8 +114,9 @@ module.exports =
           else
             atom.notifications.addError """
               **sass-lint had a problem**
-              Please consider filing an issue with [sass-lint](https://github.com/sasstools/sass-lint/)
-              including the text below and any other information possible.
+              Please consider filing an issue with [linter-sass-lint](https://github.com/AtomLinter/linter-sass-lint)
+              or [sass-lint](https://github.com/sasstools/sass-lint) including the text below and any other
+              information possible.
 
               #{error.stack}
             """, {dismissable: true}
