@@ -8,9 +8,7 @@ describe('The scss_lint provider for Linter - sass', () => {
     atom.workspace.destroyActivePaneItem();
     waitsForPromise(() => {
       atom.packages.activatePackage('linter-sass-lint');
-      return atom.packages.activatePackage('language-sass').then(() =>
-        atom.workspace.open(__dirname + '/fixtures/clean.scss')
-      );
+      return atom.packages.activatePackage('language-sass');
     });
   });
 
@@ -73,6 +71,41 @@ describe('The scss_lint provider for Linter - sass', () => {
     });
 
     it('finds nothing wrong with the valid file', () => {
+      const messages = lint(editor);
+      expect(messages.length).toEqual(0);
+    });
+  });
+
+  describe('opens ignored.sass and', () => {
+    let editor = null;
+    beforeEach(() => {
+      waitsForPromise(() => {
+        atom.config.set('linter-sass-lint.configFile', configFile);
+        return atom.workspace.open(__dirname + '/fixtures/files/ignored.sass').then(openEditor => {
+          editor = openEditor;
+        });
+      });
+    });
+
+    it('ignores the file and reports no warnings', () => {
+      const messages = lint(editor);
+      expect(messages.length).toEqual(0);
+    });
+  });
+
+  describe('opens failure.sass and sets pacakage to not lint if no config file present', () => {
+    let editor = null;
+    beforeEach(() => {
+      waitsForPromise(() => {
+        atom.config.set('linter-sass-lint.noConfigDisable', true);
+        atom.config.set('linter-sass-lint.configFile', '');
+        return atom.workspace.open(__dirname + '/fixtures/files/failure.sass').then(openEditor => {
+          editor = openEditor;
+        });
+      });
+    });
+
+    it('doesn\'t lint the file as there\s no config file present', () => {
       const messages = lint(editor);
       expect(messages.length).toEqual(0);
     });
