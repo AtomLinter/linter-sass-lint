@@ -2,9 +2,11 @@
 {find} = helpers = require 'atom-linter'
 path = require 'path'
 globule = require 'globule'
-ChildProcess = require('child_process')
+ChildProcess = require 'child_process'
+{getPath} = require 'consistent-path'
+env = Object.assign({}, process.env)
+
 prefixPath = null
-fixPath = require 'fix-path'
 
 module.exports =
   config:
@@ -64,11 +66,13 @@ module.exports =
       npmCommand = if process.platform is 'win32' then 'npm.cmd' else 'npm'
       try
         # Atom on OSX doesn't inherit a users PATH unless opened from the command line
-        if process.platform isnt 'win32' then fixPath()
+        if process.platform isnt 'win32'
+        then env = Object.assign({}, process.env, {PATH: getPath()})
+
         prefixPath = ChildProcess.spawnSync('npm', [
           'get'
           'prefix'
-        ]).output[1].toString().trim()
+        ], {env}).output[1].toString().trim()
       catch e
         throw new Error('prefix')
     if process.platform is 'win32'
