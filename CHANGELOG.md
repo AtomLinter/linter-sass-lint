@@ -1,3 +1,6 @@
+### 1.0.1
+- Updated the README.md to reflect the latest option changes in 1.0.0
+
 ### 1.0.0
 - Added 'Lint On Fly' support [#11](https://github.com/AtomLinter/linter-sass-lint/issues/11) thanks to [Casey Foster](https://github.com/caseywebdev)
 - Removed the `executablePath` option

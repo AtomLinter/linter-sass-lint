@@ -32,17 +32,19 @@ By default this plugin will search up the directory tree for this file, you can 
 
 You can use the `noConfigDisable` option to prevent any attempts at linting (and the missing config error messages you will encounter) if a valid config is not found.
 
-By default a config file found in the root of your currently open project will take preference over a config file specified with the `configPath` option.
+By default a config file found in the root of your currently open project will take preference over a config file specified with the `configFile` option.
 
 ### Settings
 
 There are three options you can configure either within the plugin or by editing your `~/.atom/config.cson` file.
 
-* `executablePath` - this is the path to a locally installed `sass-lint` package (by default the latest version of `sass-lint` version will be included with and used by this plugin when it is installed).
+* `noConfigDisable` - Enable to prevent any linting if a valid config file (`.sass-lint.yml`) is not found in the project root.
 
-* `configPath` - this is path to a `.sass-lint.yml` config file, this should only be used if you'd like to specify a global config file rather than rely on a project config file in the root of your project.
+* `configFile` - this is path to a `.sass-lint.yml` config file, this should only be used if you'd like to specify a global config file rather than rely on a project config file in the root of your project.
 
-* `noConfigDisable` - Enable to prevent any linting if a valid config file (.sass-lint.yml) is not found in the project root.
+* `globalNodePath` This is where you can set your global node installation path. Run `npm get prefix` and paste the result here. This will be where `linter-sass-lint` will then search for the globally installed version of `sass-lint` if you choose to enable this with `globalSassLint`.
+
+* `globalSassLint` This allows you to specify that you want to use your globally installed version of `sass-lint` (`npm install -g sass-lint`) instead of the version bundled with `linter-sass-lint`.
 
 ### Contributing
 
