@@ -18,7 +18,7 @@ describe('The scss_lint provider for Linter - scss', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configPath', configFile);
+        atom.config.set('linter-sass-lint.configFile', configFile);
         return atom.workspace.open(__dirname + '/fixtures/files/failure.scss').then(openEditor => {
           editor = openEditor;
         });
@@ -65,7 +65,7 @@ describe('The scss_lint provider for Linter - scss', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configPath', configFile);
+        atom.config.set('linter-sass-lint.configFile', configFile);
         return atom.workspace.open(__dirname + '/fixtures/files/pass.scss').then(openEditor => {
           editor = openEditor;
         });
