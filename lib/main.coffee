@@ -89,8 +89,9 @@ module.exports =
 
         try
           compiledConfig = linter.getConfig({}, config)
+          relativePath = this.getFilePath(filePath)[1]
 
-          if globule.isMatch(compiledConfig.files.include, this.getFilePath(filePath)[1]) and not globule.isMatch(compiledConfig.files.ignore, this.getFilePath(filePath)[1])
+          if globule.isMatch(compiledConfig.files.include, relativePath) and not globule.isMatch(compiledConfig.files.ignore, relativePath)
             result = linter.lintText({
               text: editor.getText(),
               format: path.extname(filePath).slice(1),
