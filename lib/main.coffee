@@ -2,10 +2,9 @@
 {find} = helpers = require 'atom-linter'
 path = require 'path'
 globule = require 'globule'
-ChildProcess = require 'child_process'
+{spawnSync} = require 'child_process'
 {getPath} = require 'consistent-path'
-env = Object.assign({}, process.env)
-
+env = Object.assign({}, process.env, {PATH: getPath()})
 prefixPath = null
 
 module.exports =
@@ -65,11 +64,7 @@ module.exports =
     if @globalPath is '' and prefixPath is null
       npmCommand = if process.platform is 'win32' then 'npm.cmd' else 'npm'
       try
-        # Atom on OSX doesn't inherit a users PATH unless opened from the command line
-        if process.platform isnt 'win32'
-        then env = Object.assign({}, process.env, {PATH: getPath()})
-
-        prefixPath = ChildProcess.spawnSync(npmCommand, [
+        prefixPath = spawnSync(npmCommand, [
           'get'
           'prefix'
         ], {env}).output[1].toString().trim()
@@ -98,17 +93,18 @@ module.exports =
           if error.message is 'prefix' then atom.notifications.addError """
             **Error getting $PATH - linter-sass-lint**\n
 
-            You've enabled using global sass-lint without specifying a prefix so we tried.
-            Unfortunately we were unable to execute `npm get prefix` for you\n
-            Please make sure Atom is getting $PATH correctly or set it directly in linter-sass-lint settings
+            You've enabled using global sass-lint without specifying a prefix so we tried to.
+            Unfortunately we were unable to execute `npm get prefix` for you..\n
+            Please make sure Atom is getting $PATH correctly or set it directly in the `linter-sass-lint` settings.
           """, {dismissable: true}
           return []
 
           atom.notifications.addWarning """
             **Sass-lint package missing**
 
-            The sass-lint package cannot be found, please check sass-lint package path option of this package. \n
-            If you leave this option empty the sass-lint package included with linter-sass-lint will be used.
+            The sass-lint package cannot be found, please check sass-lint is installed globally. \n
+            You can always use the sass-lint pacakage included with linter-sass-lint by disabling the
+            `Use global sass-lint installation` option
           """, {dismissable: true}
           return []
 
