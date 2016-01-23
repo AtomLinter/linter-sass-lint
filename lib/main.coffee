@@ -40,7 +40,7 @@ module.exports =
       name: 'sass-lint'
       grammarScopes: ['source.css.scss', 'source.scss', 'source.css.sass', 'source.sass']
       scope: 'file'
-      lintOnFly: false
+      lintOnFly: true
       lint: (editor) =>
         configExt = '.sass-lint.yml'
         filePath = editor.getPath()
@@ -84,7 +84,11 @@ module.exports =
           return []
 
         try
-          results = linter.lintFiles(filePath, {}, config)
+          result = linter.lintText({
+            text: editor.getText(),
+            format: path.extname(filePath).slice(1),
+            filename: filePath
+          }, {}, config)
         catch error
           messages = []
           match = error.message.match /Parsing error at [^:]+: (.*) starting from line #(\d+)/
@@ -110,7 +114,7 @@ module.exports =
             """, {dismissable: true}
           return []
 
-        if results[0] then return results[0].messages.map (msg) ->
+        if result then return result.messages.map (msg) ->
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
           text = if msg.message then ' ' + msg.message else 'Unknown Error'
