@@ -69,7 +69,7 @@ module.exports =
         if process.platform isnt 'win32'
         then env = Object.assign({}, process.env, {PATH: getPath()})
 
-        prefixPath = ChildProcess.spawnSync('npm', [
+        prefixPath = ChildProcess.spawnSync(npmCommand, [
           'get'
           'prefix'
         ], {env}).output[1].toString().trim()
