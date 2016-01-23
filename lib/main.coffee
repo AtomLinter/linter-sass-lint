@@ -2,26 +2,33 @@
 {find} = helpers = require 'atom-linter'
 path = require 'path'
 globule = require 'globule'
+ChildProcess = require('child_process')
+prefixPath = null
+fixPath = require 'fix-path'
 
 module.exports =
   config:
     noConfigDisable:
-      title: 'Disable when no sass-lint config file is found in your project and a .sass-lint.yml file is not specified in the .sass-lint.yml Path option'
+      title: 'Disable when no sass-lint config file is found in your project root'
       type: 'boolean'
+      description: 'and a .sass-lint.yml file is not specified in the .sass-lint.yml Path option'
       default: false
     configFile:
       title: '.sass-lint.yml Config File'
       description: 'A .sass-lint.yml file to use/fallback to if no config file is found in the current project root'
       type: 'string'
       default: ''
-    executablePath:
-      title: 'sass-lint package Path'
-      description: 'If you\'d like to use a copy of sass-lint other than the one included with this package, specify the path to it here e.g. \'/Users/username/packages/sass-lint\''
+    globalNodePath:
+      title: 'Global Node Installation Path'
+      description: 'Run `npm get prefix` and paste the result here'
       type: 'string'
-      default: path.join(__dirname, '..', 'node_modules', 'sass-lint')
-
-  getFilePath: (path) ->
-    relative = atom.project.relativizePath(path)
+      default: ''
+    globalSassLint:
+      title: 'Use global sass-lint installation'
+      description: """The latest sass-lint is included in this package but if you\'d like to use a globally installed one enable it here.\n
+      Make sure sass-lint is installed globally and is in your $PATH"""
+      type: 'boolean'
+      default: false
 
   activate: ->
     require('atom-package-deps').install()
@@ -32,12 +39,41 @@ module.exports =
     @subs.add atom.config.observe 'linter-sass-lint.configFile',
       (configFile) =>
         @configFile = configFile
-    @subs.add atom.config.observe 'linter-sass-lint.executablePath',
-      (executablePath) =>
-        @executablePath = executablePath
+    @subs.add atom.config.observe 'linter-sass-lint.globalSassLint',
+      (globalSassLint) =>
+        @globalSassLint = globalSassLint
+    @subs.add atom.config.observe 'linter-sass-lint.globalNodePath',
+      (globalNodePath) =>
+        @globalPath = globalNodePath
 
   deactivate: ->
     @subs.dispose()
+
+  # return a relative path for a file within our project
+  # we use this to match it to our include/exclude glob string within sass-lint's
+  # user specified config
+  getFilePath: (path) ->
+    relative = atom.project.relativizePath(path)
+
+  # Determines whether to use the sass-lint package included with linter-sass-lint
+  # or the users globally installed sass-lint version
+  findExecutable: ->
+    if not @globalSassLint
+      return require path.join(__dirname, '..', 'node_modules', 'sass-lint')
+    if @globalPath is '' and prefixPath is null
+      npmCommand = if process.platform is 'win32' then 'npm.cmd' else 'npm'
+      try
+        # Atom on OSX doesn't inherit a users PATH unless opened from the command line
+        if process.platform isnt 'win32' then fixPath()
+        prefixPath = ChildProcess.spawnSync('npm', [
+          'get'
+          'prefix'
+        ]).output[1].toString().trim()
+      catch e
+        throw new Error('prefix')
+    if process.platform is 'win32'
+    then return require path.join(@globalPath or prefixPath, 'node_modules', 'sass-lint')
+    return require path.join(@globalPath or prefixPath, 'lib', 'node_modules', 'sass-lint')
 
   provideLinter: ->
     provider =
@@ -53,14 +89,23 @@ module.exports =
         config = if projectConfig isnt null then projectConfig else globalConfig
 
         try
-          linter = require(@executablePath)
+          linter = this.findExecutable()
         catch error
+          if error.message is 'prefix' then atom.notifications.addError """
+            **Error getting $PATH - linter-sass-lint**\n
+
+            You've enabled using global sass-lint without specifying a prefix so we tried.
+            Unfortunately we were unable to execute `npm get prefix` for you\n
+            Please make sure Atom is getting $PATH correctly or set it directly in linter-sass-lint settings
+          """, {dismissable: true}
+          return []
+
           atom.notifications.addWarning """
             **Sass-lint package missing**
 
             The sass-lint package cannot be found, please check sass-lint package path option of this package. \n
             If you leave this option empty the sass-lint package included with linter-sass-lint will be used.
-          """
+          """, {dismissable: true}
           return []
 
         if config isnt null and path.extname(config) isnt '.yml'
@@ -78,7 +123,6 @@ module.exports =
             and documentation on how to configure this and each of the rules
             [here](https://github.com/sasstools/sass-lint/tree/master/docs).
           """
-
           return []
 
         else if config is null and @noConfigDisable is true

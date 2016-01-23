@@ -8,6 +8,7 @@ dependencies:
     # - sudo apt-get update # Cut out until wget is fixed on the containers
     - sudo dpkg --install atom-amd64.deb || true
     - sudo apt-get -f install -y
+    - npm install -g sass-lint
     - apm install
 test:
   override:
