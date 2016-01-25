@@ -39,7 +39,7 @@
     "babel-eslint": "^4.1.6",
     "coffeelint": "^1.14.2",
     "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^3.0.0"
+    "eslint-config-airbnb": "^4.0.0"
   },
   "eslintConfig": {
     "extends": "airbnb/base",

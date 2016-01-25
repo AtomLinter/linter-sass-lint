@@ -1,3 +1,6 @@
+### 1.0.2
+- Update eslint-config-airbnb to version 4.0.0
+
 ### 1.0.1
 - Updated the README.md to reflect the latest option changes in 1.0.0
 

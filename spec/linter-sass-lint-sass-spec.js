@@ -2,7 +2,7 @@
 
 describe('The sass-lint provider for Linter - sass', () => {
   const lint = require('../lib/main').provideLinter().lint;
-  const configFile = __dirname + '/fixtures/config/.sass-lint.yml';
+  const configFile = `${__dirname}/fixtures/config/.sass-lint.yml`;
 
   beforeEach(() => {
     atom.workspace.destroyActivePaneItem();
@@ -17,7 +17,7 @@ describe('The sass-lint provider for Linter - sass', () => {
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/failure.sass').then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/failure.sass`).then(openEditor => {
           editor = openEditor;
         });
       });
@@ -64,7 +64,7 @@ describe('The sass-lint provider for Linter - sass', () => {
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/pass.sass').then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/pass.sass`).then(openEditor => {
           editor = openEditor;
         });
       });
@@ -81,7 +81,7 @@ describe('The sass-lint provider for Linter - sass', () => {
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(__dirname + '/fixtures/files/ignored.sass').then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/ignored.sass`).then(openEditor => {
           editor = openEditor;
         });
       });
@@ -99,7 +99,7 @@ describe('The sass-lint provider for Linter - sass', () => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.noConfigDisable', true);
         atom.config.set('linter-sass-lint.configFile', '');
-        return atom.workspace.open(__dirname + '/fixtures/files/failure.sass').then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/failure.sass`).then(openEditor => {
           editor = openEditor;
         });
       });

@@ -2,7 +2,7 @@
 
 describe('The sass-lint provider for Linter - path options', () => {
   const lint = require('../lib/main').provideLinter().lint;
-  const configFile = __dirname + '/fixtures/config/.sass-lint.yml';
+  const configFile = `${__dirname}/fixtures/config/.sass-lint.yml`;
 
   beforeEach(() => {
     atom.workspace.destroyActivePaneItem();
@@ -18,7 +18,7 @@ describe('The sass-lint provider for Linter - path options', () => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
         atom.config.set('linter-sass-lint.globalSassLint', true);
-        return atom.workspace.open(__dirname + '/fixtures/files/failure.scss').then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`).then(openEditor => {
           editor = openEditor;
         });
       });
