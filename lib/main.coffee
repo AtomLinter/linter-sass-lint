@@ -155,7 +155,7 @@ module.exports =
             ]
           else
             # Leaving this here to allow people to report the errors
-            console.log(error.stack)
+            console.log('linter-sass-lint', error)
             return [
               type: 'Error'
               text: 'Unexpected parse error in file'
