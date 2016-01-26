@@ -154,14 +154,14 @@ module.exports =
               range: [[lineIdx, 0], [lineIdx, colEndIdx]]
             ]
           else
-            atom.notifications.addError """
-              **sass-lint had a problem**
-              Please consider filing an issue with [linter-sass-lint](https://github.com/AtomLinter/linter-sass-lint)
-              or [sass-lint](https://github.com/sasstools/sass-lint) including the text below and any other
-              information possible.
-
-              #{error.stack}
-            """, {dismissable: true}
+            # Leaving this here to allow people to report the errors
+            console.log(error.stack)
+            return [
+              type: 'Error'
+              text: 'Unexpected parse error in file'
+              filePath: filePath
+              range: [[lineIdx, 0], [lineIdx, colEndIdx]]
+            ]
           return []
 
         if result then return result.messages.map (msg) ->
