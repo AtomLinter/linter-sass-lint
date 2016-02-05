@@ -1,3 +1,7 @@
+### 1.0.4
+- Temporarily locked down our dependency on consistent-path to v1.0.3
+- Updated to the airbnb's eslint config v5
+
 ### 1.0.3
 - Unexpected parse errors and sass-lint issues are just reported as lint errors rather than the annoying red box of doom
 - this will be updated in 1.1.0 to improve the way these are reported and handled, for now the errors will be logged to the console.
