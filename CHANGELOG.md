@@ -1,3 +1,6 @@
+### 1.0.5
+- Temporarily locked down our dependency on `atom-package-deps` to v3.0.6
+
 ### 1.0.4
 - Temporarily locked down our dependency on consistent-path to v1.0.3
 - Updated to the airbnb's eslint config v5
