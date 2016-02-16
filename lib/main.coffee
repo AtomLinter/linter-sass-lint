@@ -117,13 +117,12 @@ module.exports =
           """
 
         if config is null and @noConfigDisable is false
-          atom.notifications.addError """
-            **No .sass-lint.yml config file found.** You can find an example of one
-            [here](https://github.com/sasstools/sass-lint/blob/master/lib/config/sass-lint.yml)
-            and documentation on how to configure this and each of the rules
-            [here](https://github.com/sasstools/sass-lint/tree/master/docs).
-          """
-          return []
+          return [
+            type: 'Info'
+            text: 'No .sass-lint.yml config file detected or specified. Please check your settings'
+            filePath: filePath
+            range: [[0, 0], [0, 0]]
+          ]
 
         else if config is null and @noConfigDisable is true
           return []
