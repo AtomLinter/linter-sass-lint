@@ -121,7 +121,7 @@ module.exports =
             type: 'Info'
             text: 'No .sass-lint.yml config file detected or specified. Please check your settings'
             filePath: filePath
-            range: [0, 0]
+            range: [[0, 0], [0, 0]]
           ]
 
         else if config is null and @noConfigDisable is true
