@@ -1,3 +1,7 @@
+### 1.1.0
+- Updated no config error messages to return info type lint warnings instead (popups are annoying)
+- Updated a few package dependencies (eslint-config-airbnb, atom-package-deps)
+
 ### 1.0.5
 - Temporarily locked down our dependency on `atom-package-deps` to v3.0.6
 
