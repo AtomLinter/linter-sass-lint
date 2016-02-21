@@ -1,3 +1,7 @@
+### 1.1.1
+- Updated eslint to ^2.2.0
+- Updated eslint-config-airbnb to ^6.0.1
+
 ### 1.1.0
 - Updated no config error messages to return info type lint warnings instead (popups are annoying)
 - Updated a few package dependencies (eslint-config-airbnb, atom-package-deps)
