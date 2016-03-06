@@ -1,3 +1,6 @@
+### 1.1.2
+- Lock down eslint to 2.2.x due to [eslint #5476](https://github.com/eslint/eslint/issues/5476)
+
 ### 1.1.1
 - Updated eslint to ^2.2.0
 - Updated eslint-config-airbnb to ^6.0.1
