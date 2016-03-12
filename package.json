@@ -36,14 +36,12 @@
     }
   },
   "devDependencies": {
-    "babel-eslint": "^5.0.0",
     "coffeelint": "^1.14.2",
-    "eslint": "2.2.x",
+    "eslint": "2.4.0",
     "eslint-config-airbnb": "^6.0.1"
   },
   "eslintConfig": {
     "extends": "airbnb/base",
-    "parser": "babel-eslint",
     "globals": {
       "atom": true
     },
