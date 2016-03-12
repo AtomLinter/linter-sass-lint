@@ -4,7 +4,6 @@ path = require 'path'
 globule = require 'globule'
 {spawnSync} = require 'child_process'
 {getPath} = require 'consistent-path'
-env = Object.assign({}, process.env, {PATH: getPath()})
 prefixPath = null
 
 module.exports =
@@ -63,6 +62,7 @@ module.exports =
       return require path.join(__dirname, '..', 'node_modules', 'sass-lint')
     if @globalPath is '' and prefixPath is null
       npmCommand = if process.platform is 'win32' then 'npm.cmd' else 'npm'
+      env = Object.assign({}, process.env, {PATH: getPath()})
       try
         prefixPath = spawnSync(npmCommand, [
           'get'
@@ -88,7 +88,7 @@ module.exports =
         config = if projectConfig isnt null then projectConfig else globalConfig
 
         try
-          linter = this.findExecutable()
+          linter = @findExecutable()
         catch error
           if error.message is 'prefix' then atom.notifications.addError """
             **Error getting $PATH - linter-sass-lint**\n
