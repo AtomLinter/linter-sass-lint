@@ -1,3 +1,11 @@
+### 1.2
+- Updated eslint to use v2.4.0 [#54](https://github.com/AtomLinter/linter-sass-lint/pull/54)
+- Improved package startup time. [#55](https://github.com/AtomLinter/linter-sass-lint/pull/55)
+
+Thanks to
+- [ypresto](https://github.com/ypresto)
+- [Arcanemagus](https://github.com/Arcanemagus)
+
 ### 1.1.2
 - Lock down eslint to 2.2.x due to [eslint #5476](https://github.com/eslint/eslint/issues/5476)
 
