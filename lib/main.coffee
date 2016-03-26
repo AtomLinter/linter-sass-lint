@@ -60,7 +60,7 @@ module.exports =
       return require path.join(__dirname, '..', 'node_modules', 'sass-lint')
     if @globalPath is '' and prefixPath is null
       npmCommand = if process.platform is 'win32' then 'npm.cmd' else 'npm'
-      env = Object.assign({}, process.env, {PATH: getPath()})
+      env = Object.assign({}, consistentEnv())
       try
         prefixPath = spawnSync(npmCommand, [
           'get'
