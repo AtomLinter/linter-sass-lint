@@ -1,4 +1,9 @@
-### 1.2
+## 1.3.0
+- Updated to use consistent-env rather than the consistent-path package
+- Updated to use the latest eslint (2.5.1) and eslint-config-airbnb (6.2.0) packages
+- Added multiple node versions to our travis test file
+
+### 1.2.0
 - Updated eslint to use v2.4.0 [#54](https://github.com/AtomLinter/linter-sass-lint/pull/54)
 - Improved package startup time. [#55](https://github.com/AtomLinter/linter-sass-lint/pull/55)
 
