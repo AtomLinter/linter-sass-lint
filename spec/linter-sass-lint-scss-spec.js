@@ -30,7 +30,7 @@ describe('The sass-lint provider for Linter - scss', () => {
 
     it('verifies the first message', () => {
       const messages = lint(editor);
-      const warningMarkup = '<span class=\"badge badge-flexible\">no-ids</span>';
+      const warningMarkup = '<span class="badge badge-flexible">no-ids</span>';
       const warnId = ' ID selectors not allowed';
       expect(messages[0].type).toBeDefined();
       expect(messages[0].type).toEqual('Error');
@@ -45,7 +45,7 @@ describe('The sass-lint provider for Linter - scss', () => {
 
     it('verifies the second message', () => {
       const messages = lint(editor);
-      const warningMarkup = '<span class=\"badge badge-flexible\">no-color-literals</span>';
+      const warningMarkup = '<span class="badge badge-flexible">no-color-literals</span>';
       const warnId = ' Color literals such as \'red\' should only be used in variable declarations';
       expect(messages[1].type).toBeDefined();
       expect(messages[1].type).toEqual('Warning');
@@ -105,7 +105,7 @@ describe('The sass-lint provider for Linter - scss', () => {
       });
     });
 
-    it('doesn\'t lint the file as there\s no config file present', () => {
+    it('doesn\'t lint the file as there\'s no config file present', () => {
       const messages = lint(editor);
       expect(messages.length).toEqual(0);
     });
