@@ -1,3 +1,7 @@
+## 1.3.1
+- Updated multiple dependencies
+- Removed unnecessary test characters 
+
 ## 1.3.0
 - Updated to use consistent-env rather than the consistent-path package
 - Updated to use the latest eslint (2.5.1) and eslint-config-airbnb (6.2.0) packages
