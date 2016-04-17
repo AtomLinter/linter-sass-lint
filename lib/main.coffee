@@ -75,6 +75,8 @@ module.exports =
   provideLinter: ->
     {find} = require 'atom-linter'
     globule = require 'globule'
+    {getRuleURI} = require './helpers'
+
     provider =
       name: 'sass-lint'
       grammarScopes: ['source.css.scss', 'source.scss', 'source.css.sass', 'source.sass']
@@ -167,7 +169,8 @@ module.exports =
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
           text = if msg.message then ' ' + msg.message else 'Unknown Error'
-          html = '<span class="badge badge-flexible">' + msg.ruleId + '</span>' + text
+          ruleHref = getRuleURI(msg.ruleId)
+          html = '<a href="'+ ruleHref + '" class="badge badge-flexible sass-lint">' + msg.ruleId + '</a>' + text
 
           result = {
             type: if msg.severity is 1 then 'Warning' else if msg.severity is 2 then 'Error' else 'Info',
