@@ -1,6 +1,11 @@
+## 1.4.0
+- Updated eslint and globule dependencies
+- Added links to the sass-lint rule documentation on all rule id badges/lint messages
+- Updated tests for new lint message format
+
 ## 1.3.1
 - Updated multiple dependencies
-- Removed unnecessary test characters 
+- Removed unnecessary test characters
 
 ## 1.3.0
 - Updated to use consistent-env rather than the consistent-path package
