@@ -75,7 +75,7 @@ module.exports =
   provideLinter: ->
     {find} = require 'atom-linter'
     globule = require 'globule'
-    helpers = require './helpers'
+    {getRuleURI} = require './helpers'
 
     provider =
       name: 'sass-lint'
@@ -169,7 +169,7 @@ module.exports =
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
           text = if msg.message then ' ' + msg.message else 'Unknown Error'
-          ruleHref = helpers.getRuleURI(msg.ruleId)
+          ruleHref = getRuleURI(msg.ruleId)
           html = '<a href="'+ ruleHref + '" class="badge badge-flexible sass-lint">' + msg.ruleId + '</a>' + text
 
           result = {
