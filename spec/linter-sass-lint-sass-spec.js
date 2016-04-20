@@ -1,7 +1,7 @@
 'use babel';
+const lint = require('../lib/main.coffee').provideLinter().lint;
 
 describe('The sass-lint provider for Linter - sass', () => {
-  const lint = require('../lib/main').provideLinter().lint;
   const configFile = `${__dirname}/fixtures/config/.sass-lint.yml`;
 
   beforeEach(() => {
