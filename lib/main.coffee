@@ -1,7 +1,6 @@
 {CompositeDisposable} = require 'atom'
 path = require 'path'
 prefixPath = null
-
 module.exports =
   config:
     noConfigDisable:
@@ -45,37 +44,10 @@ module.exports =
   deactivate: ->
     @subs.dispose()
 
-  # return a relative path for a file within our project
-  # we use this to match it to our include/exclude glob string within sass-lint's
-  # user specified config
-  getFilePath: (path) ->
-    relative = atom.project.relativizePath(path)
-
-  # Determines whether to use the sass-lint package included with linter-sass-lint
-  # or the users globally installed sass-lint version
-  findExecutable: ->
-    {spawnSync} = require 'child_process'
-    consistentEnv = require 'consistent-env'
-    if not @globalSassLint
-      return require path.join(__dirname, '..', 'node_modules', 'sass-lint')
-    if @globalPath is '' and prefixPath is null
-      npmCommand = if process.platform is 'win32' then 'npm.cmd' else 'npm'
-      env = Object.assign({}, consistentEnv())
-      try
-        prefixPath = spawnSync(npmCommand, [
-          'get'
-          'prefix'
-        ], {env}).output[1].toString().trim()
-      catch e
-        throw new Error('prefix')
-    if process.platform is 'win32'
-    then return require path.join(@globalPath or prefixPath, 'node_modules', 'sass-lint')
-    return require path.join(@globalPath or prefixPath, 'lib', 'node_modules', 'sass-lint')
-
   provideLinter: ->
     {find} = require 'atom-linter'
     globule = require 'globule'
-    {getRuleURI} = require './helpers'
+    helpers = require('./helpers')
 
     provider =
       name: 'sass-lint'
@@ -90,7 +62,7 @@ module.exports =
         config = if projectConfig isnt null then projectConfig else globalConfig
 
         try
-          linter = @findExecutable()
+          linter = helpers.findExecutable(@globalSassLint, @globalPath)
         catch error
           if error.message is 'prefix' then atom.notifications.addError """
             **Error getting $PATH - linter-sass-lint**\n
@@ -131,7 +103,7 @@ module.exports =
 
         try
           compiledConfig = linter.getConfig({}, config)
-          relativePath = this.getFilePath(filePath)[1]
+          relativePath = helpers.getFilePath(filePath)[1]
 
           if globule.isMatch(compiledConfig.files.include, relativePath) and not globule.isMatch(compiledConfig.files.ignore, relativePath)
             result = linter.lintText({
@@ -169,7 +141,7 @@ module.exports =
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
           text = if msg.message then ' ' + msg.message else 'Unknown Error'
-          ruleHref = getRuleURI(msg.ruleId)
+          ruleHref = helpers.getRuleURI(msg.ruleId)
           html = '<a href="'+ ruleHref + '" class="badge badge-flexible sass-lint">' + msg.ruleId + '</a>' + text
 
           result = {
