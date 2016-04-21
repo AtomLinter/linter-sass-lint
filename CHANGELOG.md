@@ -1,3 +1,6 @@
+## 1.4.1
+- Update included version of sass-lint to 1.6.0 :tada:
+
 ## 1.4.0
 - Updated eslint and globule dependencies
 - Added links to the sass-lint rule documentation on all rule id badges/lint messages
