@@ -23,7 +23,7 @@
     "atom-package-deps": "4.0.1",
     "consistent-env": "^1.0.1",
     "globule": "^1.0.0",
-    "sass-lint": "^1.6.0"
+    "sass-lint": "^1.6.2"
   },
   "package-deps": [
     "linter"
@@ -38,8 +38,8 @@
   "devDependencies": {
     "coffeelint": "^1.14.2",
     "eslint": "2.8.0",
-    "eslint-config-airbnb-base": "^1.0.4",
-    "eslint-plugin-import": "^1.5.0"
+    "eslint-plugin-import": "^1.6.0",
+    "eslint-config-airbnb-base": "^1.0.4"
   },
   "eslintConfig": {
     "extends": "airbnb-base",

@@ -1,3 +1,7 @@
+## 1.4.2
+- Include latest version of sass-lint
+- Fix dependency issue with eslint-config-airbnb-base
+
 ## 1.4.1
 - Update included version of sass-lint to 1.6.0 :tada:
 
