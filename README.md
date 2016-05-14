@@ -46,6 +46,13 @@ There are three options you can configure either within the plugin or by editing
 
 * `globalSassLint` This allows you to specify that you want to use your globally installed version of `sass-lint` (`npm install -g sass-lint`) instead of the version bundled with `linter-sass-lint`.
 
+### Extra File Extensions
+
+This plugin will attempt to lint a file with framework specific file extensions on top of the usual `.scss` and `.sass` extensions such as with shopify's `.scss.liquid` extension as long as you still include `.scss` or `.sass` somewhere in the file, you must also ensure that the Atom grammar scope for that file is set to either SCSS or Sass depending on which it corresponds to.
+
+This does not mean that sass-lint will be able to definitely parse any sort of non standard SCSS or Sass code and if you use any platform specific code in the file it will almost definitely produce a parse error. Sass-lint will not be moving to support any use of non standard language outside of the Sass spec.
+
+
 ### Contributing
 
 Contributions, suggestions and fixes are more than welcome.

@@ -75,7 +75,7 @@ module.exports =
   provideLinter: ->
     {find} = require 'atom-linter'
     globule = require 'globule'
-    {getRuleURI} = require './helpers'
+    helpers = require './helpers'
 
     provider =
       name: 'sass-lint'
@@ -136,7 +136,7 @@ module.exports =
           if globule.isMatch(compiledConfig.files.include, relativePath) and not globule.isMatch(compiledConfig.files.ignore, relativePath)
             result = linter.lintText({
               text: editor.getText(),
-              format: path.extname(filePath).slice(1),
+              format: helpers.getFileSyntax(filePath),
               filename: filePath
             }, {}, config)
         catch error
@@ -169,7 +169,7 @@ module.exports =
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
           text = if msg.message then ' ' + msg.message else 'Unknown Error'
-          ruleHref = getRuleURI(msg.ruleId)
+          ruleHref = helpers.getRuleURI(msg.ruleId)
           html = '<a href="'+ ruleHref + '" class="badge badge-flexible sass-lint">' + msg.ruleId + '</a>' + text
 
           result = {
