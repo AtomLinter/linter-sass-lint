@@ -9,6 +9,11 @@ module.exports =
       type: 'boolean'
       description: 'and a .sass-lint.yml file is not specified in the .sass-lint.yml Path option'
       default: false
+    resolvePathsRelativeToConfig:
+      title: 'Resolve paths in configuration relative to config file'
+      type: 'boolean'
+      description: '(and not relative to project root)'
+      default: 'false'
     configFile:
       title: '.sass-lint.yml Config File'
       description: 'A .sass-lint.yml file to use/fallback to if no config file is found in the current project root'
@@ -41,15 +46,21 @@ module.exports =
     @subs.add atom.config.observe 'linter-sass-lint.globalNodePath',
       (globalNodePath) =>
         @globalPath = globalNodePath
-
+    @subs.add atom.config.observe 'linter-sass-lint.resolvePathsRelativeToConfig',
+      (resolvePathsRelativeToConfig) =>
+        @resolvePathsRelativeToConfig = resolvePathsRelativeToConfig
   deactivate: ->
     @subs.dispose()
 
   # return a relative path for a file within our project
   # we use this to match it to our include/exclude glob string within sass-lint's
   # user specified config
-  getFilePath: (path) ->
-    relative = atom.project.relativizePath(path)
+  getFilePath: (absolutePath, configFilePath) ->
+    path = require('path')
+    if @resolvePathsRelativeToConfig
+      return path.relative(path.dirname(configFilePath), absolutePath)
+    else
+      return atom.project.relativizePath(absolutePath)[1]
 
   # Determines whether to use the sass-lint package included with linter-sass-lint
   # or the users globally installed sass-lint version
@@ -131,7 +142,7 @@ module.exports =
 
         try
           compiledConfig = linter.getConfig({}, config)
-          relativePath = this.getFilePath(filePath)[1]
+          relativePath = this.getFilePath(filePath, config)
 
           if globule.isMatch(compiledConfig.files.include, relativePath) and not globule.isMatch(compiledConfig.files.ignore, relativePath)
             result = linter.lintText({
