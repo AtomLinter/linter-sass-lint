@@ -49,6 +49,7 @@ module.exports =
     @subs.add atom.config.observe 'linter-sass-lint.resolvePathsRelativeToConfig',
       (resolvePathsRelativeToConfig) =>
         @resolvePathsRelativeToConfig = resolvePathsRelativeToConfig
+
   deactivate: ->
     @subs.dispose()
 
