@@ -12,7 +12,7 @@ module.exports =
     resolvePathsRelativeToConfig:
       title: 'Resolve paths in configuration relative to config file'
       type: 'boolean'
-      description: '(and not relative to project root)'
+      description: 'Instead of the default where paths are resolved relative to the project root'
       default: 'false'
     configFile:
       title: '.sass-lint.yml Config File'
