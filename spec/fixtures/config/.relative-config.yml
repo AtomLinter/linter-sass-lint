@@ -1,0 +1,8 @@
+options:
+  formatter: json
+  merge-default-rules: false
+files:
+  include: '../files/ignored.scss'
+rules:
+  no-color-literals: 1
+  no-ids: 2
