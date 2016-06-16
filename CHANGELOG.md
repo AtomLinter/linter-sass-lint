@@ -1,3 +1,7 @@
+## 1.6.0
+- Adds `resolvePathsRelativeToConfig` to the config options to allow paths to be resolved relative to your config file rather than project root. Thanks to [@DirtyHairy](https://github.com/DirtyHairy)
+- The usual third party package updates
+
 ## 1.5.0
 - Allows the inclusion of files with extra extensions such as 'file.scss.liquid'
 - Updated to Atom linter ^5.0.1

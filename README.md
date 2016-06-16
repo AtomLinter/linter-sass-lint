@@ -46,6 +46,8 @@ There are three options you can configure either within the plugin or by editing
 
 * `globalSassLint` This allows you to specify that you want to use your globally installed version of `sass-lint` (`npm install -g sass-lint`) instead of the version bundled with `linter-sass-lint`.
 
+* `resolvePathsRelativeToConfig` This option allows you to choose to resolve file paths relative to your config file rather than relative to the root of your currently open project.
+
 ### Extra File Extensions
 
 This plugin will attempt to lint a file with framework specific file extensions on top of the usual `.scss` and `.sass` extensions such as with shopify's `.scss.liquid` extension as long as you still include `.scss` or `.sass` somewhere in the file, you must also ensure that the Atom grammar scope for that file is set to either SCSS or Sass depending on which it corresponds to.
