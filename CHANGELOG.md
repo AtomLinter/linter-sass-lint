@@ -1,3 +1,6 @@
+## 1.6.1
+- Force update to sass-lint 1.8.0 due to the high number of fixes and also AST fixes
+
 ## 1.6.0
 - Adds `resolvePathsRelativeToConfig` to the config options to allow paths to be resolved relative to your config file rather than project root. Thanks to [@DirtyHairy](https://github.com/DirtyHairy)
 - The usual third party package updates
