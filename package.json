@@ -13,10 +13,10 @@
     "linter"
   ],
   "scripts": {
-    "lint": "coffeelint ./lib/main.coffee"
+    "lint": "coffeelint lib && eslint spec"
   },
   "engines": {
-    "atom": ">=1.0.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
     "atom-linter": "^6.0.0",
