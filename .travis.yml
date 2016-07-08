@@ -1,21 +1,19 @@
----
+# Project specific config
+language: node_js
+node_js: "6"
+
 os: osx
-sudo: true
-# lie to make travis work with nvm on osx
-language: cpp
-env:
-  matrix:
-    - TRAVIS_NODE_VERSION="0.10"
-    - TRAVIS_NODE_VERSION="0.12"
-    - TRAVIS_NODE_VERSION="2"
-    - TRAVIS_NODE_VERSION="4"
-    - TRAVIS_NODE_VERSION="5"
 
 install:
-  - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
-  - PATH="`npm bin`:`npm bin -g`:$PATH"
-  # Install dependencies and build
-  - npm install
+  - npm install -g sass-lint
+
+# Generic setup follows
+script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
 
 branches:
   only:
@@ -24,14 +22,12 @@ branches:
 git:
   depth: 10
 
-notifications:
-  email:
-    on_failure: change
-    on_success: never
+sudo: false
 
-before_script: "npm install -g sass-lint"
-
-script:
-  - node --version
-  - npm --version
-  - "curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh"
+addons:
+  apt:
+    packages:
+    - build-essential
+    - git
+    - libgnome-keyring-dev
+    - fakeroot
