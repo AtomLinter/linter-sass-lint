@@ -32,7 +32,7 @@ module.exports =
       default: false
 
   activate: ->
-    require('atom-package-deps').install()
+    require('atom-package-deps').install('linter-sass-lint')
     @subs = new CompositeDisposable
     @subs.add atom.config.observe 'linter-sass-lint.noConfigDisable',
       (noConfigDisable) =>
