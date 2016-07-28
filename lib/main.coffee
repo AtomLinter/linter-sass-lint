@@ -32,7 +32,7 @@ module.exports =
       default: false
 
   activate: ->
-    require('atom-package-deps').install()
+    require('atom-package-deps').install('linter-sass-lint')
     @subs = new CompositeDisposable
     @subs.add atom.config.observe 'linter-sass-lint.noConfigDisable',
       (noConfigDisable) =>
@@ -85,16 +85,15 @@ module.exports =
     return require path.join(@globalPath or prefixPath, 'lib', 'node_modules', 'sass-lint')
 
   provideLinter: ->
-    {find} = require 'atom-linter'
-    globule = require 'globule'
-    helpers = require './helpers'
-
     provider =
       name: 'sass-lint'
       grammarScopes: ['source.css.scss', 'source.scss', 'source.css.sass', 'source.sass']
       scope: 'file'
       lintOnFly: true
       lint: (editor) =>
+        {find} = require 'atom-linter'
+        helpers = require './helpers'
+        globule = require 'globule'
         configExt = '.sass-lint.yml'
         filePath = editor.getPath()
         projectConfig = find filePath, configExt
