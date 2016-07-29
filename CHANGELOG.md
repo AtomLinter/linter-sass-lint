@@ -1,3 +1,8 @@
+## 1.7.0
+- Package start up time improvements thanks to [@ypresto](https://github.com/ypresto)
+- Update third party packages
+- Updated CI configurations thanks [@Arcanemagus](https://github.com/Arcanemagus)
+
 ## 1.6.1
 - Force update to sass-lint 1.8.0 due to the high number of fixes and also AST fixes
 
