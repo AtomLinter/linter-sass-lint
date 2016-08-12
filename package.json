@@ -13,10 +13,10 @@
     "linter"
   ],
   "scripts": {
-    "lint": "coffeelint ./lib/main.coffee"
+    "lint": "coffeelint lib && eslint spec"
   },
   "engines": {
-    "atom": ">=1.0.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
     "atom-linter": "^7.0.0",
@@ -37,9 +37,9 @@
   },
   "devDependencies": {
     "coffeelint": "^1.14.2",
-    "eslint": "2.13.1",
-    "eslint-config-airbnb-base": "^3.0.1",
-    "eslint-plugin-import": "^1.7.0"
+    "eslint": "3.0.1",
+    "eslint-config-airbnb-base": "^4.0.0",
+    "eslint-plugin-import": "^1.10.2"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
