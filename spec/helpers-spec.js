@@ -16,33 +16,33 @@ describe('helpers', () => {
 
   describe('isValidSyntax', () => {
     it('should return true if a supported syntax is passed', () => {
-      expect(helpers.isValidSyntax('scss')).toEqual(true);
+      expect(helpers.isValidSyntax('scss')).toBe(true);
     });
 
     it('should return false if a supported syntax is not passed', () => {
-      expect(helpers.isValidSyntax('html')).toEqual(false);
+      expect(helpers.isValidSyntax('html')).toBe(false);
     });
   });
 
   describe('getFileSyntax', () => {
     it('it should return scss if a scss filename is provided', () => {
-      expect(helpers.getFileSyntax('test/file.scss')).toEqual('scss');
+      expect(helpers.getFileSyntax('test/file.scss')).toBe('scss');
     });
 
     it('it should return sass if a sass filename is provided', () => {
-      expect(helpers.getFileSyntax('test/file.sass')).toEqual('sass');
+      expect(helpers.getFileSyntax('test/file.sass')).toBe('sass');
     });
 
     it('it should return scss if a scss.liquid filename is provided', () => {
-      expect(helpers.getFileSyntax('test/file.scss.liquid')).toEqual('scss');
+      expect(helpers.getFileSyntax('test/file.scss.liquid')).toBe('scss');
     });
 
     it('it should return sass if a sass.liquid filename is provided', () => {
-      expect(helpers.getFileSyntax('test/file.sass.liquid')).toEqual('sass');
+      expect(helpers.getFileSyntax('test/file.sass.liquid')).toBe('sass');
     });
 
     it('it should return html if a html filename is provided', () => {
-      expect(helpers.getFileSyntax('test/file.html')).toEqual('html');
+      expect(helpers.getFileSyntax('test/file.html')).toBe('html');
     });
   });
 });
