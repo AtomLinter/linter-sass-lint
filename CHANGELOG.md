@@ -1,3 +1,7 @@
+## 1.7.1
+- Update sass-lint version to 1.9.1 to force fix AST issues included with sass-lint
+- Updated other third party packages
+
 ## 1.7.0
 - Package start up time improvements thanks to [@ypresto](https://github.com/ypresto)
 - Update third party packages
