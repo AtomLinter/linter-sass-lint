@@ -1,6 +1,7 @@
 'use babel';
 
 import { join } from 'path';
+
 const lint = require('../lib/main.coffee').provideLinter().lint;
 
 const failurePath = join(__dirname, 'fixtures', 'files', 'failure.scss');
