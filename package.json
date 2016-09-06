@@ -38,7 +38,7 @@
   "devDependencies": {
     "coffeelint": "^1.14.2",
     "eslint": "3.4.0",
-    "eslint-config-airbnb-base": "^6.0.0",
+    "eslint-config-airbnb-base": "^7.0.0",
     "eslint-plugin-import": "^1.14.0"
   },
   "eslintConfig": {
