@@ -24,7 +24,7 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
         atom.config.set('linter-sass-lint.resolvePathsRelativeToConfig', true);
-        return atom.workspace.open(ignoredPath).then(openEditor => {
+        return atom.workspace.open(ignoredPath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -70,7 +70,7 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(failurePath).then(openEditor => {
+        return atom.workspace.open(failurePath).then((openEditor) => {
           editor = openEditor;
         });
       });

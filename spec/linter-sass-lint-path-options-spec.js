@@ -23,7 +23,7 @@ describe('The sass-lint provider for Linter - path options', () => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
         atom.config.set('linter-sass-lint.globalSassLint', true);
-        return atom.workspace.open(failurePath).then(openEditor => {
+        return atom.workspace.open(failurePath).then((openEditor) => {
           editor = openEditor;
         });
       });

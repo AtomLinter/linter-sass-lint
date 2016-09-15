@@ -24,7 +24,7 @@ describe('The sass-lint provider for Linter - sass', () => {
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(failurePath).then(openEditor => {
+        return atom.workspace.open(failurePath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -70,7 +70,7 @@ describe('The sass-lint provider for Linter - sass', () => {
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(passPath).then(openEditor => {
+        return atom.workspace.open(passPath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -88,7 +88,7 @@ describe('The sass-lint provider for Linter - sass', () => {
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(ignoredPath).then(openEditor => {
+        return atom.workspace.open(ignoredPath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -107,7 +107,7 @@ describe('The sass-lint provider for Linter - sass', () => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.noConfigDisable', true);
         atom.config.set('linter-sass-lint.configFile', '');
-        return atom.workspace.open(failurePath).then(openEditor => {
+        return atom.workspace.open(failurePath).then((openEditor) => {
           editor = openEditor;
         });
       });
