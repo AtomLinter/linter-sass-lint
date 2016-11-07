@@ -1,3 +1,6 @@
+## 1.7.3
+- Update sass-lint version to 1.10.1
+
 ## 1.7.2
 - Update sass-lint version to 1.10.0 - adds support for disabling linters via comments
 - Updated other third party packages
