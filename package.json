@@ -23,7 +23,7 @@
     "atom-package-deps": "4.3.1",
     "consistent-env": "^1.0.1",
     "globule": "^1.0.0",
-    "sass-lint": "1.10.1"
+    "sass-lint": "1.10.2"
   },
   "package-deps": [
     "linter"
