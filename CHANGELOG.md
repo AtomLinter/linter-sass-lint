@@ -1,3 +1,6 @@
+## 1.7.4
+- Update sass-lint version to 1.10.2
+
 ## 1.7.3
 - Update sass-lint version to 1.10.1
 
