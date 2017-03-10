@@ -47,7 +47,7 @@ module.exports =
     return rootDir
 
   ###*
-   * Checks to see if a config file exists in the projects root directory if a root directory exists
+   * Checks to see if a config file exists in the project's root directory if a root directory exists
    * @param {string|null} dir - The current project root or null if a project doesn't exist
    * @param {string} configExt - The Sass-lint config extension
    * @return {string|null} The path to the config file if located in the project root, null if it doesn't exist
@@ -67,11 +67,11 @@ module.exports =
     return rootDir
 
   ###*
-   * Looks for an returns the path to a projects config file or null if it can't be found or doesn't exist
+   * Looks for and returns the path to a projects config file or null if it can't be found or doesn't exist
    * @param {Object} editor - An editor instance
    * @param {string} filePath - The currently active editor file path
    * @param {string} configExt - The Sass-lint config extension
-   * @param {boolean} noRootConfigDisable - The user specified option to disable linter-sass-lint if no config
+   * @param {boolean} noRootConfDisable - The user specified option to disable linter-sass-lint if no config
    *                 is found in the root of the project
    * @return {string|null} The path to the config file or null if not found
    ###
