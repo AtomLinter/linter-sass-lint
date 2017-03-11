@@ -1,10 +1,13 @@
 'use babel';
 
+import { join } from 'path';
+
 const lint = require('../lib/main.coffee').provideLinter().lint;
 
-describe('The sass-lint provider for Linter - path options', () => {
-  const configFile = `${__dirname}/fixtures/config/.sass-lint.yml`;
+const failurePath = join(__dirname, 'fixtures', 'files', 'failure.scss');
+const configFile = join(__dirname, 'fixtures', 'config', '.sass-lint.yml');
 
+describe('The sass-lint provider for Linter - path options', () => {
   beforeEach(() => {
     atom.workspace.destroyActivePaneItem();
     waitsForPromise(() => {
@@ -15,15 +18,14 @@ describe('The sass-lint provider for Linter - path options', () => {
 
   describe('checks failure.scss, expects a message and', () => {
     let editor = null;
+
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
         atom.config.set('linter-sass-lint.globalSassLint', true);
-        return atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`).then(
-          (openEditor) => {
-            editor = openEditor;
-          }
-        );
+        return atom.workspace.open(failurePath).then((openEditor) => {
+          editor = openEditor;
+        });
       });
     });
 
@@ -38,14 +40,11 @@ describe('The sass-lint provider for Linter - path options', () => {
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-ids</a>`;
       const warnId = ' ID selectors not allowed';
-      expect(messages[0].type).toBeDefined();
-      expect(messages[0].type).toEqual('Error');
-      expect(messages[0].html).toBeDefined();
-      expect(messages[0].html).toEqual(`${warningMarkup}${warnId}`);
-      expect(messages[0].filePath).toBeDefined();
-      expect(messages[0].filePath).toMatch(/.+failure.scss$/);
-      expect(messages[0].range).toBeDefined();
-      expect(messages[0].range.length).toEqual(2);
+
+      expect(messages[0].type).toBe('Error');
+      expect(messages[0].text).not.toBeDefined();
+      expect(messages[0].html).toBe(`${warningMarkup}${warnId}`);
+      expect(messages[0].filePath).toBe(failurePath);
       expect(messages[0].range).toEqual([[0, 0], [0, 1]]);
     });
 
@@ -55,14 +54,11 @@ describe('The sass-lint provider for Linter - path options', () => {
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-color-literals</a>`;
       const warnId = ' Color literals such as \'red\' should only be used in variable declarations';
-      expect(messages[1].type).toBeDefined();
-      expect(messages[1].type).toEqual('Warning');
-      expect(messages[1].html).toBeDefined();
-      expect(messages[1].html).toEqual(`${warningMarkup}${warnId}`);
-      expect(messages[1].filePath).toBeDefined();
-      expect(messages[1].filePath).toMatch(/.+failure.scss$/);
-      expect(messages[1].range).toBeDefined();
-      expect(messages[1].range.length).toEqual(2);
+
+      expect(messages[1].type).toBe('Warning');
+      expect(messages[1].text).not.toBeDefined();
+      expect(messages[1].html).toBe(`${warningMarkup}${warnId}`);
+      expect(messages[1].filePath).toBe(failurePath);
       expect(messages[1].range).toEqual([[1, 9], [1, 10]]);
     });
   });

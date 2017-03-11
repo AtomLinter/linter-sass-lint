@@ -1,7 +1,7 @@
 {
   "name": "linter-sass-lint",
   "main": "./lib/main",
-  "version": "1.6.1",
+  "version": "1.7.4",
   "description": "Atom Linter plugin to lint your Sass/SCSS with pure node sass-lint",
   "repository": "https://github.com/AtomLinter/linter-sass-lint",
   "license": "MIT",
@@ -13,17 +13,17 @@
     "linter"
   ],
   "scripts": {
-    "lint": "coffeelint ./lib/main.coffee"
+    "lint": "coffeelint lib && eslint spec"
   },
   "engines": {
     "atom": ">=1.0.0"
   },
   "dependencies": {
-    "atom-linter": "^6.0.0",
-    "atom-package-deps": "4.0.1",
+    "atom-linter": "^9.0.0",
+    "atom-package-deps": "^4.4.0",
     "consistent-env": "^1.0.1",
     "globule": "^1.0.0",
-    "sass-lint": "^1.8.0"
+    "sass-lint": "1.10.2"
   },
   "package-deps": [
     "linter"
@@ -37,9 +37,9 @@
   },
   "devDependencies": {
     "coffeelint": "^1.14.2",
-    "eslint": "2.13.1",
-    "eslint-config-airbnb-base": "^3.0.1",
-    "eslint-plugin-import": "^1.7.0"
+    "eslint": "^3.13.0",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-plugin-import": "^2.2.0"
   },
   "eslintConfig": {
     "extends": "airbnb-base",
@@ -47,7 +47,6 @@
       "atom": true
     },
     "env": {
-      "es6": true,
       "node": true
     }
   }

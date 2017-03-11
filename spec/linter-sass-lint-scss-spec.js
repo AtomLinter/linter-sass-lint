@@ -1,10 +1,15 @@
 'use babel';
 
+import { join } from 'path';
+
 const lint = require('../lib/main.coffee').provideLinter().lint;
 
-describe('The sass-lint provider for Linter - scss', () => {
-  const configFile = `${__dirname}/fixtures/config/.sass-lint.yml`;
+const failurePath = join(__dirname, 'fixtures', 'files', 'failure.scss');
+const ignoredPath = join(__dirname, 'fixtures', 'files', 'ignored.scss');
+const passPath = join(__dirname, 'fixtures', 'files', 'pass.scss');
+const configFile = join(__dirname, 'fixtures', 'config', '.sass-lint.yml');
 
+describe('The sass-lint provider for Linter - scss', () => {
   beforeEach(() => {
     atom.workspace.destroyActivePaneItem();
     waitsForPromise(() => {
@@ -15,10 +20,11 @@ describe('The sass-lint provider for Linter - scss', () => {
 
   describe('checks failure.scss and', () => {
     let editor = null;
+
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`).then((openEditor) => {
+        return atom.workspace.open(failurePath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -35,14 +41,11 @@ describe('The sass-lint provider for Linter - scss', () => {
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-ids</a>`;
       const warnId = ' ID selectors not allowed';
-      expect(messages[0].type).toBeDefined();
-      expect(messages[0].type).toEqual('Error');
-      expect(messages[0].html).toBeDefined();
-      expect(messages[0].html).toEqual(`${warningMarkup}${warnId}`);
-      expect(messages[0].filePath).toBeDefined();
-      expect(messages[0].filePath).toMatch(/.+failure\.scss$/);
-      expect(messages[0].range).toBeDefined();
-      expect(messages[0].range.length).toEqual(2);
+
+      expect(messages[0].type).toBe('Error');
+      expect(messages[0].text).not.toBeDefined();
+      expect(messages[0].html).toBe(`${warningMarkup}${warnId}`);
+      expect(messages[0].filePath).toBe(failurePath);
       expect(messages[0].range).toEqual([[0, 0], [0, 1]]);
     });
 
@@ -52,24 +55,22 @@ describe('The sass-lint provider for Linter - scss', () => {
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-color-literals</a>`;
       const warnId = ' Color literals such as \'red\' should only be used in variable declarations';
-      expect(messages[1].type).toBeDefined();
-      expect(messages[1].type).toEqual('Warning');
-      expect(messages[1].html).toBeDefined();
-      expect(messages[1].html).toEqual(`${warningMarkup}${warnId}`);
-      expect(messages[1].filePath).toBeDefined();
-      expect(messages[1].filePath).toMatch(/.+failure\.scss$/);
-      expect(messages[1].range).toBeDefined();
-      expect(messages[1].range.length).toEqual(2);
+
+      expect(messages[1].type).toBe('Warning');
+      expect(messages[1].text).not.toBeDefined();
+      expect(messages[1].html).toBe(`${warningMarkup}${warnId}`);
+      expect(messages[1].filePath).toBe(failurePath);
       expect(messages[1].range).toEqual([[1, 9], [1, 10]]);
     });
   });
 
   describe('checks pass.scss and', () => {
     let editor = null;
+
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(`${__dirname}/fixtures/files/pass.scss`).then((openEditor) => {
+        return atom.workspace.open(passPath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -77,16 +78,17 @@ describe('The sass-lint provider for Linter - scss', () => {
 
     it('finds nothing wrong with the valid file', () => {
       const messages = lint(editor);
-      expect(messages.length).toEqual(0);
+      expect(messages.length).toBe(0);
     });
   });
 
   describe('opens ignored.scss and', () => {
     let editor = null;
+
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(`${__dirname}/fixtures/files/ignored.scss`).then((openEditor) => {
+        return atom.workspace.open(ignoredPath).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -94,25 +96,26 @@ describe('The sass-lint provider for Linter - scss', () => {
 
     it('ignores the file and reports no warnings', () => {
       const messages = lint(editor);
-      expect(messages.length).toEqual(0);
+      expect(messages.length).toBe(0);
     });
   });
 
   describe('opens failure.scss and sets pacakage to not lint if no config file present', () => {
     let editor = null;
+
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.noConfigDisable', true);
         atom.config.set('linter-sass-lint.configFile', '');
-        return atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`).then((openEditor) => {
+        return atom.workspace.open(failurePath).then((openEditor) => {
           editor = openEditor;
         });
       });
     });
 
-    it('doesn\'t lint the file as there\'s no config file present', () => {
+    it("doesn't lint the file as there's no config file present", () => {
       const messages = lint(editor);
-      expect(messages.length).toEqual(0);
+      expect(messages.length).toBe(0);
     });
   });
 });

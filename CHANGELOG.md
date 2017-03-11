@@ -1,3 +1,22 @@
+## 1.7.4
+- Update sass-lint version to 1.10.2
+
+## 1.7.3
+- Update sass-lint version to 1.10.1
+
+## 1.7.2
+- Update sass-lint version to 1.10.0 - adds support for disabling linters via comments
+- Updated other third party packages
+
+## 1.7.1
+- Update sass-lint version to 1.9.1 to force fix AST issues included with sass-lint
+- Updated other third party packages
+
+## 1.7.0
+- Package start up time improvements thanks to [@ypresto](https://github.com/ypresto)
+- Update third party packages
+- Updated CI configurations thanks [@Arcanemagus](https://github.com/Arcanemagus)
+
 ## 1.6.1
 - Force update to sass-lint 1.8.0 due to the high number of fixes and also AST fixes
 
