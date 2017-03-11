@@ -88,7 +88,7 @@ describe('helpers', () => {
 
     it('should return null if no config exists in the root of the project', () => {
       expect(
-        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml')
+        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml'),
       ).toBe(null);
     });
 
@@ -96,7 +96,7 @@ describe('helpers', () => {
     it('should return the config file path if a config is found in the project root', () => {
       spyOn(fs, 'accessSync').andReturn(true);
       expect(
-        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml')
+        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml'),
       ).not.toBe(null);
       expect(fs.accessSync).toHaveBeenCalled();
     });
