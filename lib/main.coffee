@@ -1,5 +1,6 @@
 {CompositeDisposable} = require 'atom'
 prefixPath = null
+path = null
 
 module.exports =
   config:
@@ -67,7 +68,7 @@ module.exports =
   findExecutable: ->
     {spawnSync} = require 'child_process'
     consistentEnv = require 'consistent-env'
-    path = require 'path'
+    path = require 'path' if not path?
 
     if not @globalSassLint
       return require path.join(__dirname, '..', 'node_modules', 'sass-lint')
@@ -88,7 +89,7 @@ module.exports =
   provideLinter: ->
     globule = require 'globule'
     helpers = require './helpers'
-    path = require 'path'
+    path = require 'path' if not path?
 
 
     provider =
