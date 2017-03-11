@@ -40,11 +40,7 @@ module.exports =
    * @return {Object|null} The project directory instance or null if no project root is found
    ###
   getRootDir: (filePath) ->
-    rootDir = null
-    atom.project.rootDirectories.forEach((dir) ->
-      if dir.contains(filePath) then rootDir = dir
-    )
-    return rootDir
+    return atom.project.relativizePath(filePath)[0]
 
   ###*
    * Checks to see if a config file exists in the project's root directory if a root directory exists
@@ -57,10 +53,10 @@ module.exports =
     rootDir = dir
 
     if rootDir
-      rootDir = rootDir.getPath() + '/' + configExt
+      confLoc = path.join(rootDir, configExt)
       try
-        fs.accessSync(rootDir, fs.R_OK)
-        return rootDir
+        fs.accessSync(confLoc, fs.R_OK)
+        return confLoc
       catch
         return null
 
