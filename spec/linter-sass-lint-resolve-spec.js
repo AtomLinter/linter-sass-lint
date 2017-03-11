@@ -1,4 +1,5 @@
 'use babel';
+
 const lint = require('../lib/main.coffee').provideLinter().lint;
 
 describe('The sass-lint provider for Linter - resolve paths relative to config file', () => {
@@ -17,7 +18,7 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
         atom.config.set('linter-sass-lint.resolvePathsRelativeToConfig', true);
-        return atom.workspace.open(`${__dirname}/fixtures/files/ignored.scss`).then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/ignored.scss`).then((openEditor) => {
           editor = openEditor;
         });
       });
@@ -68,7 +69,7 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
     beforeEach(() => {
       waitsForPromise(() => {
         atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`).then(openEditor => {
+        return atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`).then((openEditor) => {
           editor = openEditor;
         });
       });

@@ -1,4 +1,5 @@
 'use babel';
+
 import { SASSLINT_DOC_URL } from '../lib/constants.coffee';
 
 const helpers = require('../lib/helpers.coffee');
@@ -52,7 +53,7 @@ describe('helpers', () => {
     beforeEach(() => {
       waitsForPromise(() => (
         atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`)
-          .then(openEditor => {
+          .then((openEditor) => {
             editor = openEditor;
           })
       ));
@@ -65,7 +66,7 @@ describe('helpers', () => {
     it('should return the root dir object if the file is part of the currently open project',
       () => {
         expect(helpers.getRootDir(editor.getPath())).not.toEqual(null);
-        expect(helpers.getRootDir(editor.getPath()).lowerCasePath).toBeDefined();
+        expect(helpers.getRootDir(editor.getPath())).toBeDefined();
       });
   });
 
@@ -75,7 +76,7 @@ describe('helpers', () => {
     beforeEach(() => {
       waitsForPromise(() => (
         atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`)
-          .then(openEditor => {
+          .then((openEditor) => {
             editor = openEditor;
           })
       ));
