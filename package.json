@@ -20,9 +20,9 @@
   },
   "dependencies": {
     "atom-linter": "^10.0.0",
-    "atom-package-deps": "^4.4.0",
-    "consistent-env": "^1.0.1",
-    "globule": "^1.0.0",
+    "atom-package-deps": "^4.6.0",
+    "consistent-env": "^1.3.1",
+    "globule": "^1.2.0",
     "sass-lint": "1.11.1"
   },
   "package-deps": [
@@ -36,9 +36,9 @@
     }
   },
   "devDependencies": {
-    "coffeelint": "^1.14.2",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb-base": "^11.3.1",
+    "coffeelint": "^1.16.0",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0"
   },
   "eslintConfig": {
