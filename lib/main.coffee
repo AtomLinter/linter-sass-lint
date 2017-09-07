@@ -96,9 +96,12 @@ module.exports =
         globule = require 'globule'
         configExt = '.sass-lint.yml'
         filePath = editor.getPath()
+        packageFile = require(find filePath, 'package.json').sasslintConfig
+        packageConfig = find filePath, packageFile if packageFile
         projectConfig = find filePath, configExt
+        localConfig = if packageConfig isnt null then packageConfig else projectConfig
         globalConfig = if @configFile is '' then null else @configFile
-        config = if projectConfig isnt null then projectConfig else globalConfig
+        config = if localConfig isnt null then localConfig else globalConfig
 
         try
           linter = @findExecutable()
