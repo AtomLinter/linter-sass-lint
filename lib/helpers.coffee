@@ -76,6 +76,6 @@ module.exports =
     rootDir = @getRootDir(filePath)
     rootDirConfig = @getRootDirConfig(rootDir, configExt)
 
-    if noRootConfDisable is true and rootDirConfig is false then return null
+    if noRootConfDisable is true and rootDirConfig is null then return null
 
     return find filePath, configExt
