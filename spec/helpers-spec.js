@@ -63,11 +63,13 @@ describe('helpers', () => {
       expect(helpers.getRootDir('/test.scss')).toEqual(null);
     });
 
-    it('should return the root dir object if the file is part of the currently open project',
+    it(
+      'should return the root dir object if the file is part of the currently open project',
       () => {
         expect(helpers.getRootDir(editor.getPath())).not.toEqual(null);
         expect(helpers.getRootDir(editor.getPath())).toBeDefined();
-      });
+      },
+    );
   });
 
   describe('getRootDirConfig', () => {
@@ -87,17 +89,15 @@ describe('helpers', () => {
     });
 
     it('should return null if no config exists in the root of the project', () => {
-      expect(
-        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml'),
-      ).toBe(null);
+      const rootDir = helpers.getRootDir(editor.getPath());
+      expect(helpers.getRootDirConfig(rootDir, '.sass-lint.yml')).toBe(null);
     });
 
 
     it('should return the config file path if a config is found in the project root', () => {
       spyOn(fs, 'accessSync').andReturn(true);
-      expect(
-        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml'),
-      ).not.toBe(null);
+      const rootDir = helpers.getRootDir(editor.getPath());
+      expect(helpers.getRootDirConfig(rootDir, '.sass-lint.yml')).not.toBe(null);
       expect(fs.accessSync).toHaveBeenCalled();
     });
   });
