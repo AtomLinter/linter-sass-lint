@@ -1,6 +1,6 @@
 {CompositeDisposable} = require 'atom'
-path = require 'path'
 prefixPath = null
+path = null
 
 module.exports =
   config:
@@ -68,6 +68,8 @@ module.exports =
   findExecutable: ->
     {spawnSync} = require 'child_process'
     consistentEnv = require 'consistent-env'
+    path = require 'path' if not path?
+
     if not @globalSassLint
       return require path.join(__dirname, '..', 'node_modules', 'sass-lint')
     if @globalPath is '' and prefixPath is null
@@ -85,6 +87,9 @@ module.exports =
     return require path.join(@globalPath or prefixPath, 'lib', 'node_modules', 'sass-lint')
 
   provideLinter: ->
+    globule = require 'globule'
+    helpers = require './helpers'
+    path = require 'path' if not path?
     provider =
       name: 'sass-lint'
       grammarScopes: ['source.css.scss', 'source.scss', 'source.css.sass', 'source.sass']
@@ -96,7 +101,7 @@ module.exports =
         globule = require 'globule'
         configExt = '.sass-lint.yml'
         filePath = editor.getPath()
-        projectConfig = find filePath, configExt
+        projectConfig = helpers.getConfig(editor, filePath, configExt, @noConfigDisable)
         globalConfig = if @configFile is '' then null else @configFile
         config = if projectConfig isnt null then projectConfig else globalConfig
 

@@ -3,6 +3,7 @@
 import { SASSLINT_DOC_URL } from '../lib/constants.coffee';
 
 const helpers = require('../lib/helpers.coffee');
+const fs = require('fs');
 
 describe('helpers', () => {
   describe('getRuleURI', () => {
@@ -43,6 +44,61 @@ describe('helpers', () => {
 
     it('it should return html if a html filename is provided', () => {
       expect(helpers.getFileSyntax('test/file.html')).toBe('html');
+    });
+  });
+
+  describe('getRootDir', () => {
+    let editor = null;
+
+    beforeEach(() => {
+      waitsForPromise(() => (
+        atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`)
+          .then((openEditor) => {
+            editor = openEditor;
+          })
+      ));
+    });
+
+    it('should return null if the file isn\'t within the currently open project', () => {
+      expect(helpers.getRootDir('/test.scss')).toEqual(null);
+    });
+
+    it('should return the root dir object if the file is part of the currently open project',
+      () => {
+        expect(helpers.getRootDir(editor.getPath())).not.toEqual(null);
+        expect(helpers.getRootDir(editor.getPath())).toBeDefined();
+      });
+  });
+
+  describe('getRootDirConfig', () => {
+    let editor = null;
+
+    beforeEach(() => {
+      waitsForPromise(() => (
+        atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`)
+          .then((openEditor) => {
+            editor = openEditor;
+          })
+      ));
+    });
+
+    it('should return null if no root directory is specified', () => {
+      expect(helpers.getRootDirConfig(null, '.sass-lint.yml')).toBe(null);
+    });
+
+    it('should return null if no config exists in the root of the project', () => {
+      expect(
+        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml'),
+      ).toBe(null);
+    });
+
+
+    it('should return the config file path if a config is found in the project root', () => {
+      spyOn(fs, 'accessSync').andReturn(true);
+      expect(
+        helpers.getRootDirConfig(helpers.getRootDir(editor.getPath()), '.sass-lint.yml'),
+      ).not.toBe(null);
+      expect(fs.accessSync).toHaveBeenCalled();
     });
   });
 });

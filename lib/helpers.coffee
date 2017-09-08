@@ -33,3 +33,49 @@ module.exports =
         return syntax[0]
 
     return existingSyntax
+
+  ###*
+   * Attempts to resolve the root directory/project directory of the currently open file/editor instance
+   * @param {string} filePath - The currently active editor file path
+   * @return {Object|null} The project directory instance or null if no project root is found
+   ###
+  getRootDir: (filePath) ->
+    return atom.project.relativizePath(filePath)[0]
+
+  ###*
+   * Checks to see if a config file exists in the project's root directory if a root directory exists
+   * @param {string|null} dir - The current project root or null if a project doesn't exist
+   * @param {string} configExt - The Sass-lint config extension
+   * @return {string|null} The path to the config file if located in the project root, null if it doesn't exist
+   ###
+  getRootDirConfig: (dir, configExt) ->
+    fs = require 'fs'
+    rootDir = dir
+
+    if rootDir
+      confLoc = path.join(rootDir, configExt)
+      try
+        fs.accessSync(confLoc, fs.R_OK)
+        return confLoc
+      catch
+        return null
+
+    return rootDir
+
+  ###*
+   * Looks for and returns the path to a projects config file or null if it can't be found or doesn't exist
+   * @param {Object} editor - An editor instance
+   * @param {string} filePath - The currently active editor file path
+   * @param {string} configExt - The Sass-lint config extension
+   * @param {boolean} noRootConfDisable - The user specified option to disable linter-sass-lint if no config
+   *                 is found in the root of the project
+   * @return {string|null} The path to the config file or null if not found
+   ###
+  getConfig: (editor, filePath, configExt, noRootConfDisable) ->
+    {find} = require 'atom-linter'
+    rootDir = @getRootDir(filePath)
+    rootDirConfig = @getRootDirConfig(rootDir, configExt)
+
+    if noRootConfDisable is true and rootDirConfig is null then return null
+
+    return find filePath, configExt
