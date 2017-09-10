@@ -1,5 +1,7 @@
 'use babel';
 
+// eslint-disable-next-line no-unused-vars
+import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
 import { join } from 'path';
 
 const { lint } = require('../lib/main.coffee').provideLinter();
@@ -8,34 +10,27 @@ const failurePath = join(__dirname, 'fixtures', 'files', 'failure.scss');
 const configFile = join(__dirname, 'fixtures', 'config', '.sass-lint.yml');
 
 describe('The sass-lint provider for Linter - path options', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     atom.workspace.destroyActivePaneItem();
-    waitsForPromise(() => {
-      atom.packages.activatePackage('linter-sass-lint');
-      return atom.packages.activatePackage('language-sass');
-    });
+    await atom.packages.activatePackage('language-sass');
+    await atom.packages.activatePackage('linter-sass-lint');
   });
 
   describe('checks failure.scss, expects a message and', () => {
-    let editor = null;
+    let messages = null;
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        atom.config.set('linter-sass-lint.globalSassLint', true);
-        return atom.workspace.open(failurePath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
+    beforeEach(async () => {
+      atom.config.set('linter-sass-lint.configFile', configFile);
+      atom.config.set('linter-sass-lint.globalSassLint', true);
+      const editor = await atom.workspace.open(failurePath);
+      messages = await lint(editor);
     });
 
     it('lints the file with the globally installed sass-lint', () => {
-      const messages = lint(editor);
       expect(messages.length).toBeGreaterThan(0);
     });
 
     it('verifies the first message', () => {
-      const messages = lint(editor);
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-ids.md';
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-ids</a>`;
@@ -49,7 +44,6 @@ describe('The sass-lint provider for Linter - path options', () => {
     });
 
     it('verifies the second message', () => {
-      const messages = lint(editor);
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-color-literals.md';
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-color-literals</a>`;
