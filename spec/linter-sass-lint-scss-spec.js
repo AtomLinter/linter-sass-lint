@@ -2,7 +2,7 @@
 
 import { join } from 'path';
 
-const lint = require('../lib/main.coffee').provideLinter().lint;
+const { lint } = require('../lib/main.coffee').provideLinter();
 
 const failurePath = join(__dirname, 'fixtures', 'files', 'failure.scss');
 const ignoredPath = join(__dirname, 'fixtures', 'files', 'ignored.scss');
