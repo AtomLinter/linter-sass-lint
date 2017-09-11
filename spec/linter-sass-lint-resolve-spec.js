@@ -1,5 +1,7 @@
 'use babel';
 
+// eslint-disable-next-line no-unused-vars
+import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
 import { join } from 'path';
 
 const { lint } = require('../lib/main.coffee').provideLinter();
@@ -9,34 +11,27 @@ const ignoredPath = join(__dirname, 'fixtures', 'files', 'ignored.scss');
 const configFile = join(__dirname, 'fixtures', 'config', '.relative-config.yml');
 
 describe('The sass-lint provider for Linter - resolve paths relative to config file', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     atom.workspace.destroyActivePaneItem();
-    waitsForPromise(() => {
-      atom.packages.activatePackage('linter-sass-lint');
-      return atom.packages.activatePackage('language-sass');
-    });
+    await atom.packages.activatePackage('language-sass');
+    await atom.packages.activatePackage('linter-sass-lint');
   });
 
   describe('checks ignored.scss and', () => {
-    let editor = null;
+    let messages = null;
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        atom.config.set('linter-sass-lint.resolvePathsRelativeToConfig', true);
-        return atom.workspace.open(ignoredPath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
+    beforeEach(async () => {
+      atom.config.set('linter-sass-lint.configFile', configFile);
+      atom.config.set('linter-sass-lint.resolvePathsRelativeToConfig', true);
+      const editor = await atom.workspace.open(ignoredPath);
+      messages = await lint(editor);
     });
 
     it('finds at least one message', () => {
-      const messages = lint(editor);
       expect(messages.length).toBeGreaterThan(0);
     });
 
     it('verifies the first message', () => {
-      const messages = lint(editor);
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-ids.md';
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-ids</a>`;
@@ -50,7 +45,6 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
     });
 
     it('verifies the second message', () => {
-      const messages = lint(editor);
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-color-literals.md';
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-color-literals</a>`;
@@ -65,19 +59,11 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
   });
 
   describe('checks failure.scss and', () => {
-    let editor = null;
+    it('finds nothing wrong with the valid file', async () => {
+      atom.config.set('linter-sass-lint.configFile', configFile);
+      const editor = await atom.workspace.open(failurePath);
+      const messages = await lint(editor);
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(failurePath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it('finds nothing wrong with the valid file', () => {
-      const messages = lint(editor);
       expect(messages.length).toBe(0);
     });
   });

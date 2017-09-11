@@ -1,5 +1,7 @@
 'use babel';
 
+// eslint-disable-next-line no-unused-vars
+import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
 import { SASSLINT_DOC_URL } from '../lib/constants.coffee';
 
 const helpers = require('../lib/helpers.coffee');
@@ -50,13 +52,8 @@ describe('helpers', () => {
   describe('getRootDir', () => {
     let editor = null;
 
-    beforeEach(() => {
-      waitsForPromise(() => (
-        atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`)
-          .then((openEditor) => {
-            editor = openEditor;
-          })
-      ));
+    beforeEach(async () => {
+      editor = await atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`);
     });
 
     it('should return null if the file isn\'t within the currently open project', () => {
@@ -75,13 +72,8 @@ describe('helpers', () => {
   describe('getRootDirConfig', () => {
     let editor = null;
 
-    beforeEach(() => {
-      waitsForPromise(() => (
-        atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`)
-          .then((openEditor) => {
-            editor = openEditor;
-          })
-      ));
+    beforeEach(async () => {
+      editor = await atom.workspace.open(`${__dirname}/fixtures/files/failure.scss`);
     });
 
     it('should return null if no root directory is specified', () => {

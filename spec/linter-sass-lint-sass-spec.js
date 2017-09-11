@@ -1,5 +1,7 @@
 'use babel';
 
+// eslint-disable-next-line no-unused-vars
+import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
 import { join } from 'path';
 
 const { lint } = require('../lib/main.coffee').provideLinter();
@@ -10,33 +12,26 @@ const passPath = join(__dirname, 'fixtures', 'files', 'pass.scss');
 const configFile = join(__dirname, 'fixtures', 'config', '.sass-lint.yml');
 
 describe('The sass-lint provider for Linter - sass', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     atom.workspace.destroyActivePaneItem();
-    waitsForPromise(() => {
-      atom.packages.activatePackage('linter-sass-lint');
-      return atom.packages.activatePackage('language-sass');
-    });
+    await atom.packages.activatePackage('language-sass');
+    await atom.packages.activatePackage('linter-sass-lint');
   });
 
   describe('checks failure.sass and', () => {
-    let editor = null;
+    let messages = null;
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(failurePath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
+    beforeEach(async () => {
+      atom.config.set('linter-sass-lint.configFile', configFile);
+      const editor = await atom.workspace.open(failurePath);
+      messages = await lint(editor);
     });
 
     it('finds at least one message', () => {
-      const messages = lint(editor);
       expect(messages.length).toBeGreaterThan(0);
     });
 
     it('verifies the first message', () => {
-      const messages = lint(editor);
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-ids.md';
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-ids</a>`;
@@ -50,7 +45,6 @@ describe('The sass-lint provider for Linter - sass', () => {
     });
 
     it('verifies the second message', () => {
-      const messages = lint(editor);
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-color-literals.md';
       const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
       const warningMarkup = `<a ${attributes}>no-color-literals</a>`;
@@ -65,56 +59,32 @@ describe('The sass-lint provider for Linter - sass', () => {
   });
 
   describe('checks pass.sass and', () => {
-    let editor = null;
+    it('finds nothing wrong with the valid file', async () => {
+      atom.config.set('linter-sass-lint.configFile', configFile);
+      const editor = await atom.workspace.open(passPath);
+      const messages = await lint(editor);
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(passPath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it('finds nothing wrong with the valid file', () => {
-      const messages = lint(editor);
       expect(messages.length).toBe(0);
     });
   });
 
   describe('opens ignored.sass and', () => {
-    let editor = null;
+    it('ignores the file and reports no warnings', async () => {
+      atom.config.set('linter-sass-lint.configFile', configFile);
+      const editor = await atom.workspace.open(ignoredPath);
+      const messages = await lint(editor);
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.configFile', configFile);
-        return atom.workspace.open(ignoredPath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it('ignores the file and reports no warnings', () => {
-      const messages = lint(editor);
       expect(messages.length).toBe(0);
     });
   });
 
   describe('opens failure.sass and sets pacakage to not lint if no config file present', () => {
-    let editor = null;
+    it("doesn't lint the file as there's no config file present", async () => {
+      atom.config.set('linter-sass-lint.noConfigDisable', true);
+      atom.config.set('linter-sass-lint.configFile', '');
+      const editor = await atom.workspace.open(failurePath);
+      const messages = await lint(editor);
 
-    beforeEach(() => {
-      waitsForPromise(() => {
-        atom.config.set('linter-sass-lint.noConfigDisable', true);
-        atom.config.set('linter-sass-lint.configFile', '');
-        return atom.workspace.open(failurePath).then((openEditor) => {
-          editor = openEditor;
-        });
-      });
-    });
-
-    it("doesn't lint the file as there's no config file present", () => {
-      const messages = lint(editor);
       expect(messages.length).toBe(0);
     });
   });
