@@ -1,3 +1,7 @@
+# 1.8.0
+- Reworked the way that a config file is resolved to fix issues where configs in project roots were being ignored.
+- Updated a few dependencies
+
 # 1.7.6
 - Update sass-lint version to 1.11.1
 
