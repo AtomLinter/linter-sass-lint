@@ -1,3 +1,6 @@
+# 1.8.3
+- Update sass-lint version to 1.12.1
+
 # 1.8.2
 - Update sass-lint version to 1.12.0
 - Update dependencies
