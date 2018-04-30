@@ -173,9 +173,14 @@ module.exports =
           else
             # Leaving this here to allow people to report the errors
             console.log('linter-sass-lint', error)
+
+            # Unknown rules are forwarded to the user.
+            if /Rule `[\w-]+` could not be found/.test error.message
+              text = error.message
+
             return [
               type: 'Error'
-              text: 'Unexpected parse error in file'
+              text: text or 'Unexpected parse error in file'
               filePath: filePath
               range: [[lineIdx, 0], [lineIdx, colEndIdx]]
             ]
