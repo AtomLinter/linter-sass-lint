@@ -33,28 +33,26 @@ describe('The sass-lint provider for Linter - resolve paths relative to config f
 
     it('verifies the first message', () => {
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-ids.md';
-      const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
-      const warningMarkup = `<a ${attributes}>no-ids</a>`;
-      const warnId = ' ID selectors not allowed';
+      const warnId = 'ID selectors not allowed (no-ids)';
 
-      expect(messages[0].type).toBe('Error');
-      expect(messages[0].text).not.toBeDefined();
-      expect(messages[0].html).toBe(`${warningMarkup}${warnId}`);
-      expect(messages[0].filePath).toBe(ignoredPath);
-      expect(messages[0].range).toEqual([[0, 0], [0, 1]]);
+      expect(messages[0].severity).toBe('error');
+      expect(messages[0].description).not.toBeDefined();
+      expect(messages[0].url).toBe(slDocUrl);
+      expect(messages[0].excerpt).toBe(warnId);
+      expect(messages[0].location.file).toBe(ignoredPath);
+      expect(messages[0].location.position).toEqual([[0, 0], [0, 1]]);
     });
 
     it('verifies the second message', () => {
       const slDocUrl = 'https://github.com/sasstools/sass-lint/tree/master/docs/rules/no-color-literals.md';
-      const attributes = `href="${slDocUrl}" class="badge badge-flexible sass-lint"`;
-      const warningMarkup = `<a ${attributes}>no-color-literals</a>`;
-      const warnId = ' Color literals such as \'red\' should only be used in variable declarations';
+      const warnId = 'Color literals such as \'red\' should only be used in variable declarations (no-color-literals)';
 
-      expect(messages[1].type).toBe('Warning');
-      expect(messages[1].text).not.toBeDefined();
-      expect(messages[1].html).toBe(`${warningMarkup}${warnId}`);
-      expect(messages[1].filePath).toBe(ignoredPath);
-      expect(messages[1].range).toEqual([[1, 9], [1, 10]]);
+      expect(messages[1].severity).toBe('warning');
+      expect(messages[1].description).not.toBeDefined();
+      expect(messages[1].url).toBe(slDocUrl);
+      expect(messages[1].excerpt).toBe(warnId);
+      expect(messages[1].location.file).toBe(ignoredPath);
+      expect(messages[1].location.position).toEqual([[1, 9], [1, 10]]);
     });
   });
 

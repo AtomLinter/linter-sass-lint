@@ -94,7 +94,7 @@ module.exports =
       name: 'sass-lint'
       grammarScopes: ['source.css.scss', 'source.scss', 'source.css.sass', 'source.sass']
       scope: 'file'
-      lintOnFly: true
+      lintsOnChange: true
       lint: (editor) =>
         {find} = require 'atom-linter'
         helpers = require './helpers'
@@ -136,10 +136,12 @@ module.exports =
 
         if config is null and @noConfigDisable is false
           return [
-            type: 'Info'
-            text: 'No .sass-lint.yml config file detected or specified. Please check your settings'
-            filePath: filePath
-            range: [[0, 0], [0, 0]]
+            severity: 'info'
+            excerpt: 'No .sass-lint.yml config file detected or specified. Please check your settings'
+            location: {
+              file: filePath
+              position: [[0, 0], [0, 0]]
+            }
           ]
 
         else if config is null and @noConfigDisable is true
@@ -165,34 +167,40 @@ module.exports =
             colEndIdx = if line then line.length else 1
 
             return [
-              type: 'Error'
-              text: text
-              filePath: filePath
-              range: [[lineIdx, 0], [lineIdx, colEndIdx]]
+              severity: 'error'
+              excerpt: text
+              location: {
+                file: filePath
+                position: [[lineIdx, 0], [lineIdx, colEndIdx]]
+              }
             ]
           else
             # Leaving this here to allow people to report the errors
             console.log('linter-sass-lint', error)
             return [
-              type: 'Error'
-              text: 'Unexpected parse error in file'
-              filePath: filePath
-              range: [[lineIdx, 0], [lineIdx, colEndIdx]]
+              severity: 'error'
+              excerpt: 'Unexpected parse error in file'
+              location: {
+                file: filePath
+                position: [[lineIdx, 0], [lineIdx, colEndIdx]]
+              }
             ]
           return []
 
         if result then return result.messages.map (msg) ->
           line = if msg.line then msg.line - 1 else 0
           col = if msg.column then msg.column - 1 else 0
-          text = if msg.message then ' ' + msg.message else 'Unknown Error'
+          text = if msg.message then msg.message + ' (' + msg.ruleId + ')' else 'Unknown Error'
           ruleHref = helpers.getRuleURI(msg.ruleId)
-          html = '<a href="'+ ruleHref + '" class="badge badge-flexible sass-lint">' + msg.ruleId + '</a>' + text
 
           result = {
-            type: if msg.severity is 1 then 'Warning' else if msg.severity is 2 then 'Error' else 'Info',
-            html,
-            filePath: filePath,
-            range: [[line, col], [line, col + 1]]
+            severity: if msg.severity is 1 then 'warning' else if msg.severity is 2 then 'error' else 'info',
+            excerpt: text,
+            url: ruleHref
+            location: {
+              file: filePath,
+              position: [[line, col], [line, col + 1]]
+            }
           }
 
           return result
