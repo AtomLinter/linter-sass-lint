@@ -16,7 +16,7 @@
     "lint": "coffeelint lib && eslint spec"
   },
   "engines": {
-    "atom": ">=1.0.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
     "atom-linter": "^10.0.0",
@@ -26,12 +26,12 @@
     "sass-lint": "1.12.1"
   },
   "package-deps": [
-    "linter"
+    "linter:2.0.0"
   ],
   "providedServices": {
     "linter": {
       "versions": {
-        "1.1.0": "provideLinter"
+        "2.0.0": "provideLinter"
       }
     }
   },
