@@ -1,3 +1,6 @@
+# 1.9.0
+- Update to linter v2 API
+
 # 1.8.3
 - Update sass-lint version to 1.12.1
 
