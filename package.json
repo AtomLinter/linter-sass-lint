@@ -42,6 +42,11 @@
     "eslint-plugin-import": "^2.7.0",
     "jasmine-fix": "^1.3.0"
   },
+  "renovate": {
+    "extends": [
+      "config:base"
+    ]
+  },
   "eslintConfig": {
     "extends": "airbnb-base",
     "globals": {
