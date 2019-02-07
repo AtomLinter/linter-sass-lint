@@ -4,10 +4,12 @@ import {
   // eslint-disable-next-line no-unused-vars
   it, fit, wait, beforeEach, afterEach,
 } from 'jasmine-fix';
-import { SASSLINT_DOC_URL } from '../lib/constants.coffee';
+// NOTE: This rule appears to currently be broken
+// eslint-disable-next-line import/named
+import { SASSLINT_DOC_URL } from '../lib/constants';
 
 const fs = require('fs');
-const helpers = require('../lib/helpers.coffee');
+const helpers = require('../lib/helpers');
 
 describe('helpers', () => {
   describe('getRuleURI', () => {
