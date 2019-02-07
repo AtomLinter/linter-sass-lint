@@ -1,11 +1,13 @@
 'use babel';
 
-// eslint-disable-next-line no-unused-vars
-import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
+import {
+  // eslint-disable-next-line no-unused-vars
+  it, fit, wait, beforeEach, afterEach,
+} from 'jasmine-fix';
 import { SASSLINT_DOC_URL } from '../lib/constants.coffee';
 
-const helpers = require('../lib/helpers.coffee');
 const fs = require('fs');
+const helpers = require('../lib/helpers.coffee');
 
 describe('helpers', () => {
   describe('getRuleURI', () => {
