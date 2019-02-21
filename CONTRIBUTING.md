@@ -10,7 +10,7 @@
 
 * Pull requests should reference their related issues where possible. If the pull request closes an issue, [please reference its closing from a commit messages](https://help.github.com/articles/closing-issues-via-commit-messages/).
 * Pull request titles should be descriptive, explaining at the high level what it is doing, and should be written in the same style as [Git commit messages](#git-commit-messages).
-* Follow our Coffeescript styleguides. We have linters set up to catch most of it.
+* Follow the current coding style. Your changes should pass `npm run lint`.
 * Ensure that [EditorConfig](http://editorconfig.org/) installed in the editor and that it is functioning properly.
 * Do not squash or rebase commits when submitting a Pull Request. It makes it much harder to follow work and make incremental changes.
 * Ensure no Emoji tags are used in the title of the Pull Request
