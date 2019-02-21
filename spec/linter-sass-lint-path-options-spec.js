@@ -6,7 +6,7 @@ import {
 } from 'jasmine-fix';
 import { join } from 'path';
 
-const { lint } = require('../lib/main.coffee').provideLinter();
+const { lint } = require('../lib/main').provideLinter();
 
 const failurePath = join(__dirname, 'fixtures', 'files', 'failure.scss');
 const configFile = join(__dirname, 'fixtures', 'config', '.sass-lint.yml');
@@ -41,7 +41,7 @@ describe('The sass-lint provider for Linter - path options', () => {
       expect(messages[0].url).toBe(slDocUrl);
       expect(messages[0].excerpt).toBe(warnId);
       expect(messages[0].location.file).toBe(failurePath);
-      expect(messages[0].location.position).toEqual([[0, 0], [0, 1]]);
+      expect(messages[0].location.position).toEqual([[0, 0], [0, 5]]);
     });
 
     it('verifies the second message', () => {
@@ -53,7 +53,7 @@ describe('The sass-lint provider for Linter - path options', () => {
       expect(messages[1].url).toBe(slDocUrl);
       expect(messages[1].excerpt).toBe(warnId);
       expect(messages[1].location.file).toBe(failurePath);
-      expect(messages[1].location.position).toEqual([[1, 9], [1, 10]]);
+      expect(messages[1].location.position).toEqual([[1, 9], [1, 12]]);
     });
   });
 });
