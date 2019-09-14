@@ -22,8 +22,11 @@ defaults: &defaults
         name: Node.js version
         command: node --version
     - run:
-        name: Install sass-lint
-        command: sudo npm install -g sass-lint
+        name: Install sass-lint globally
+        command: |
+          sudo npm install --global sass-lint && \
+          sudo rm -Rf ~/.npm
+        # Removes the .npm folder as the cache is partially polluted as root
     - run:
         name: Sass Lint version
         command: sass-lint --version
