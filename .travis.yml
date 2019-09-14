@@ -8,7 +8,7 @@ os:
 
 # Installed for linting the project
 language: node_js
-node_js: "6"
+node_js: "10"
 
 install:
   - npm install -g sass-lint
