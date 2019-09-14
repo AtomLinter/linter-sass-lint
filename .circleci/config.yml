@@ -22,8 +22,11 @@ defaults: &defaults
         name: Node.js version
         command: node --version
     - run:
-        name: Install sass-lint
-        command: sudo npm install -g sass-lint
+        name: Install sass-lint globally
+        command: |
+          sudo npm install --global sass-lint && \
+          sudo rm -Rf ~/.npm
+        # Removes the .npm folder as the cache is partially polluted as root
     - run:
         name: Sass Lint version
         command: sass-lint --version
@@ -37,9 +40,6 @@ defaults: &defaults
         name: APM version
         command: ${APM_SCRIPT_PATH} --version
     - run:
-        name: Cleaning package
-        command: ${APM_SCRIPT_PATH} clean
-    - run:
         name: Package APM package dependencies
         command: |
           if [ -n "${APM_TEST_PACKAGES}" ]; then
@@ -51,13 +51,16 @@ defaults: &defaults
         name: Package dependencies
         command: ${APM_SCRIPT_PATH} install
     - run:
+        name: Cleaning package
+        command: ${APM_SCRIPT_PATH} clean
+    - run:
         name: Package specs
         command: ${ATOM_SCRIPT_PATH} --test spec
     # Cache node_modules
     - save_cache:
         paths:
           - node_modules
-        key: v1-dependencies-{{ checksum "package.json" }}
+        key: v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "package-lock.json"}}
 
 jobs:
   checkout_code:
@@ -69,10 +72,15 @@ jobs:
       # Restore node_modules from the last build
       - restore_cache:
           keys:
-          # Get latest cache for this package.json
-          - v1-dependencies-{{ checksum "package.json" }}
-          # Fallback to the last available cache
-          - v1-dependencies
+          # Get latest cache for this package.json and pacakge-lock.json
+          - v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-{{ checksum "package-lock.json"}}
+          # Fallback to the current package.json
+          - v2-dependencies-{{ .Branch }}-{{ checksum "package.json" }}-
+          # Fallback to the last build for this branch
+          - v2-dependencies-{{ .Branch }}-
+          # Fallback to the last available master branch cache
+          - v2-dependencies-master-
+          # Don't go further down to prevent dependency issues from other branches
       # Save project state for next steps
       - persist_to_workspace:
           root: /tmp
